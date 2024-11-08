@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>Чекер для резюме</title>
+    <script src="https://unpkg.com/petite-vue" defer init></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/2.1.0/showdown.min.js" integrity="sha512-LhccdVNGe2QMEfI3x4DVV3ckMRe36TfydKss6mJpdHjNFiV07dFpS2xzeZedptKZrwxfICJpez09iNioiSZ3hA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- Загружаем компоненты -->
+    <script src="components/app.js" ></script>
+    <script src="components/checklist.js" ></script>
+    <script src="components/checkform.js" ></script>
+    <script src="components/legend.js" ></script>
+    <script src="components/personal.js" ></script>
+    <script src="components/cover.js" ></script>
+    <script src="components/basicinfo.js" ></script>
+    <script src="components/experiancereal.js" ></script>
+    <!-- Загружаем стили -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/style.css">
+
+</head>
+<body>
+
+
+<main class="container mt-4" id="app" v-scope="App()">
+
+    <p class="mt-3"><small>ID Ученика</small></p>
+    <section >
+        <div class="row">
+            <div class="col-9">
+                <input type="text" v-model="model.student_id" class="form-control">
+            </div>
+            <div class="col-3">
+                <input v-model="model.is_preview_mode_on" type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off">
+                <label class="btn  btn-outline-primary w-100" for="btn-check-outlined">Превью</label><br>
+            </div>
+        </div>
+    </section>
+
+
+
+    <div class="row">
+
+        <article class="col-9">
+
+            <!--  Поле с резюме   -->
+            <div class="mt-3">
+                <div v-if="!model.is_preview_mode_on">
+                    <textarea v-model="model.resume" rows=20 class="form-control" placeholder="Здесь будет текст резюме"></textarea>
+                </div>
+
+                <div v-if="model.is_preview_mode_on">
+                    <div v-html="model.resume_preview" class="preview"><h1>123</h1> {{model.resume_preview}} </div>
+                </div>
+            </div>
+
+        </article>
+
+        <aside class="col-3">
+
+
+            <section v-scope="BasicInfo()" >
+                <h6>Базовая инфа</h6>
+                <button @click="loadBasicInfo" class="btn btn-primary" >Загрузить инфо</button>
+            </section>
+
+            <section v-scope="ExperienceReal()" class="mt-3 mb-3">
+                <h6>Работа до Skypro</h6>
+                <button @click="loadExperience" class="btn btn-primary" >
+                    <span v-if="!model.isLoading">Сгенерировать</span>
+                    <span v-if="model.isLoading">Идет генерация... </span>
+                </button>
+            </section>
+
+            <section v-scope="Legend()" class="mt-3 mb-3">
+                <h6>Легенда</h6>
+
+                <div class="mt-3 mb-3"><select v-model="model.legend_type" class="form-control">
+                    <option value="ITDEPARTMENT">Работа в IT отделе работодателя</option>
+                    <option value="INTERNSHIP">Стажировка по новой специальности</option>
+                    <option value="FREELANCE">Фриланс проекты</option>
+                    <option value="NO">Без легенды</option>
+                </select></div>
+
+                <p class="mt-3">
+                    <button @click="loadLegend" class="btn btn-primary" >
+                        <span v-if="!model.isLoading">Сгенерировать</span>
+                        <span v-if="model.isLoading">Идет генерация... </span>
+                    </button>
+                <p>
+
+            </section>
+
+            <section v-scope="Personal()" class="mt-3" >
+
+                <h6 class="mb-3">Блок "О себе"</h6>
+
+                <button @click="loadPersonal" class="btn btn-primary" >
+                    <span v-if="!model.isLoading">Сгенерировать</span>
+                    <span v-if="model.isLoading">Идет генерация... </span>
+                </button>
+
+            </section>
+
+        </aside>
+    </div>
+
+    <details v-scope="CheckForm()" >
+
+        <summary>Проверка резюме с помощью ИИ</summary>
+
+        <p>
+            <select v-model="model.profession" class="form-control" >
+                <option value="DA" selected>Аналитик данных</option>
+                <option value="PD">Python Developer</option>
+                <option value="JD">Java Developer</option>
+            </select>
+        </p>
+
+        <p v-if="model.isLoading">Загружаем данные, займет до минуты</p>
+
+        <button @click="loadData" class="btn btn-primary" v-if="!model.isLoading">Проверить резюме</button>
+
+        <div v-scope="Checklist()">
+
+            <ul  v-if="model.isLoaded">
+                <li v-for="checkpoint in model.checklist">
+                    <span v-if="checkpoint.value==1"> ✅ </span>
+                    <span v-if="checkpoint.value==0"> ❌ </span>
+                    <span v-if="checkpoint.value==0.5"> 🤔 </span>
+                    {{ checkpoint.title }}
+                </li>
+            </ul>
+
+        </div>
+
+    </details>
+
+    <details v-scope="Cover()" class="mt-3">
+        <summary >Генерация сопроводительного ковра</summary>
+
+        <p><textarea v-if="model.cover!=''" v-model="model.cover" class="form-control" placeholder="Здесь будет сопроводительное"></textarea></p>
+
+        <p><small>Ссылка на вакансию на HH</small></p>
+        <p><input type="text" v-model="model.vacancy_link" class="form-control"></p>
+        <p><button @click="loadCover" class="btn btn-sm btn-primary" >Сгенерировать </button></p>
+    </details>
+
+
+</main>
+</div>
+
+
+</body>
+</html>
+
+
