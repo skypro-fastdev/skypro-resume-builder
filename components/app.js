@@ -1,10 +1,10 @@
 BASICURL = "https://fastapi-cors-proxy.onrender.com/api/exec?v=BASICINFO"
 
 showdown = new showdown.Converter()
-function  App(){
+
+function App() {
 
     return {
-
 
 
         model: {
@@ -20,11 +20,7 @@ function  App(){
             about: "",
             about_prompt: "",
 
-            skill_set: [
-                { id: 1, text: "JavaScript" },
-                { id: 2, text: "HTML/CSS" },
-                { id: 3, text: "React.js" }
-            ],
+            skill_set: [],
 
             student_mail: "",
             student_phone: "",
@@ -66,19 +62,29 @@ function  App(){
             resume_cover: "",
 
             hh_vacancy_url: "https://hh.ru/vacancy/111420778",
+            hh_client_id: "S754EPR26AICHFF4GM9QG952T281ALITK235VT2R2CF3KU4O0BMH2UKKJF16Q7GS",
+            hh_code: "",
 
         },
 
-        getIdFromURL(){
+        getIdFromURL() {
             return new URLSearchParams(window.location.search).get('student_id')
         },
 
+        getHHCodeFromURL() {
+            const code = new URLSearchParams(window.location.search).get('code')
+            if (code) {
+                console.log(`Получен OAUTH для HH ${code}`)
+                return code
+            }
+        },
 
-        load(){
 
-            axios.post(BASICURL, { "student_id": this.model.student_id+""})
+        load() {
+
+            axios.post(BASICURL, {"student_id": this.model.student_id + ""})
                 .then(response => {
-                    console.log("Выполнена загрузка"+ JSON.stringify(response))
+                    console.log("Выполнена загрузка" + JSON.stringify(response))
                     const data = response.data
                     this.model.student_full_name = data.name;
                     this.model.student_gender = data.student_gender;
@@ -97,9 +103,9 @@ function  App(){
                     this.model.previous_job_position = data.recent_position;
                     this.model.previous_job_industry = data.recent_industry;
 
-                    this.model.education_organisation  =data.education_organisation
+                    this.model.education_organisation = data.education_organisation
                     this.model.education_industry = data.education_industry
-                    this.model.skill_set = data.skills.map(skill => ({text: skill, id: 0}) )
+                    this.model.skill_set = data.skills.map(skill => ({text: skill, id: 0}))
 
                     this.buildResume()
 
@@ -109,27 +115,50 @@ function  App(){
 
 
         mounted() {
-            this.model.student_id = this.getIdFromURL() ? this.getIdFromURL() : 13620001;
-            setInterval(this.load, 2000)
+
+            this.model.student_id = this.getIdFromURL() ? this.getIdFromURL() : ""; // 13620001
+            this.model.hh_code = this.getHHCodeFromURL() ? this.getHHCodeFromURL() : "";
+
+            if (this.model.student_id) {
+                console.log("Указан ID ученика, загружаем данные с сервера")
+                this.load()
+
+            } else {
+                console.log("Не указан ID ученика, ищем данные локально")
+                this.loadFromLocalStorage()
+            }
+
+            setInterval(this.buildResume, 2000)
+            setInterval(this.saveToLocalStorage, 5000)
 
         },
 
         saveToLocalStorage() {
-            const model = { name: this.name };
-            localStorage.setItem('model', JSON.stringify(model));
+
+            localStorage.setItem("model", JSON.stringify(this.model));
+            console.log("Данные сохранены в локальном хранилище")
+
         },
 
         loadFromLocalStorage() {
-            const savedModel = localStorage.getItem('model');
-            if (savedModel) {
-                const model = JSON.parse(savedModel);
-                this.name = model.name;
-            } else {
-                console.log('No data found in local storage.');
+
+            const storedModel = localStorage.getItem("model")
+
+            if (storedModel) {
+
+                const modelData = JSON.parse(storedModel)
+
+                for (let key of Object.keys(this.model)) {
+
+                    if (modelData[key]) {
+                        this.model[key] = modelData[key]
+                    }
+                }
+
             }
         },
 
-        buildResume(){
+        buildResume() {
 
             const rawMarkdown = `
             
@@ -137,13 +166,13 @@ function  App(){
             
             **${this.model.profession_pretty}, ${this.model.student_location}**
             
-            ${this.model.student_phone ? ' Телефон: '+this.model.student_phone : '' }
+            ${this.model.student_phone ? ' Телефон: ' + this.model.student_phone : ''}
             
-            ${this.model.student_mail ? ' Почта: '+this.model.student_mail : '' }
+            ${this.model.student_mail ? ' Почта: ' + this.model.student_mail : ''}
             
-            ${this.model.student_tg ? ' Telegram: '+this.model.student_tg : '' }
+            ${this.model.student_tg ? ' Telegram: ' + this.model.student_tg : ''}
             
-            ${this.model.student_vk ? ' VK: '+this.model.student_vk : '' }
+            ${this.model.student_vk ? ' VK: ' + this.model.student_vk : ''}
 
             ---
             
@@ -169,7 +198,7 @@ function  App(){
             
             ## Навыки
            
-            ${this.model.skill_set ? this.model.skill_set.map(skill =>`${skill.text}`).join(", ") : "Навыки не указаны"}             
+            ${this.model.skill_set ? this.model.skill_set.map(skill => `${skill.text}`).join(", ") : "Навыки не указаны"}             
             
             ## О себе
             
