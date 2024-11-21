@@ -1,3 +1,9 @@
 body {
    background: #ebedef;
 }
+
+.alert.alert-info {
+
+   background-color: #eedbf7;
+   border: none;
+}
