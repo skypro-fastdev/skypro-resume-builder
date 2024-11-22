@@ -31,7 +31,6 @@ function App(store) {
             student_age: "23",
             student_location: "",
             student_motivation: "",
-            student_photo_url: "",
 
             legend_on: false,
             legend_type: "ITDEPARTMENT",
@@ -67,7 +66,12 @@ function App(store) {
             hh_client_id: "S754EPR26AICHFF4GM9QG952T281ALITK235VT2R2CF3KU4O0BMH2UKKJF16Q7GS",
             hh_vacancy_url: "https://hh.ru/vacancy/111420778",
             hh_id: "",
+
+            // Фотография
             hh_photo_id: "",
+            hh_photo_small: "",
+            hh_photo_medium: "",
+
 
             hh_portfolio_id: "",
             hh_code: "",
@@ -116,7 +120,7 @@ function App(store) {
 
                     this.model.education_organisation = data.education_organisation
                     this.model.education_industry = data.education_industry
-                    this.model.skill_set = data.skills.map(skill => ({text: skill, id: 0}))
+                    this.model.skill_set = data.skills.map(skill => skill.text)
 
                     this.buildResume()
 
@@ -235,7 +239,7 @@ function App(store) {
             
             ## Навыки
            
-            ${this.model.skill_set ? this.model.skill_set.map(skill => `${skill.text}`).join(", ") : "Навыки не указаны"}             
+            ${this.model.skill_set ? this.model.skill_set.join(", ") : "Навыки не указаны"}             
             
             ## О себе
             

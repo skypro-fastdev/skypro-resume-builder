@@ -5,13 +5,11 @@ function SkillsSection(){
         
         <h3>Навыки</h3>
           <p>
-            <span v-for="skill in model.skill_set" style="margin-right: 16px" >{{ skill.text }}</span> 
+            <span v-for="skill in model.skill_set" style="margin-right: 16px" >{{ skill }}</span> 
             <span>&nbsp;&nbsp;</span>
           </p>
            
         `
     }
-
-
 
 }

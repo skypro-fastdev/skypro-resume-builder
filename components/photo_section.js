@@ -21,13 +21,17 @@ function PhotoSection(){
 
             const formData = new FormData();
             formData.append('file', file);
+            formData.append('hh_access_token', this.model.hh_access_token)
 
             const upload_photo_url = UPLOADBASEURL+this.model.student_id
 
             axios.post(upload_photo_url, formData, { headers: {'Content-Type': 'multipart/form-data' } })
                 .then(response => {
                     console.log(response.data); // Handle successful upload response
-                    this.model.student_photo_url = response.data.student_photo_url
+                    this.model.hh_photo_id = response.data["id"]
+                    this.model.hh_photo_small = response.data["small"]
+                    this.model.hh_photo_medium = response.data["medium"]
+
                 })
                 .catch(error => {
                     console.error(error); // Handle upload errors
