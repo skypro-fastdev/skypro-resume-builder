@@ -32,8 +32,7 @@ function PublishSection(store) {
          <div v-if="model.hh_id">
             <div class="alert alert-info text-muted mt-3">
                 <small>Резюме опубликовано</small>
-                {{model.hh_id}}
-                
+              
                 <p><a :href="'https://hh.ru/resume/'+model.hh_id.split('/').pop()" class="btn btn-dark">Посмотреть резюме на hh.ru</a></p>
             </div>
          </div>         
@@ -46,7 +45,7 @@ function PublishSection(store) {
         publish() {
 
             const requestData = JSON.parse(JSON.stringify(this.model));
-            requestData["skill_set"] = ""
+
             requestData["student_first_name"] = this.model.student_full_name.split(" ")[1]
             requestData["student_last_name"] = this.model.student_full_name.split(" ")[0]
 
