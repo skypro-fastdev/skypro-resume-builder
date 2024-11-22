@@ -23,6 +23,7 @@
   <script src="components/checklist_section.js" type="text/javascript"></script>
   <script src="components/cover_section.js" type="text/javascript"></script>
   <script src="components/publish_section.js" type="text/javascript"></script>
+  <script src="components/preview_section.js" type="text/javascript"></script>
 
   <!-- Загружаем стили -->
   <link rel="stylesheet" href="/assets/bootstrap.min.css" type="text/css">
@@ -31,15 +32,19 @@
 </head>
 <body>
 
-<div class="container mt-4" id="app" v-scope="App()" @vue:mounted="mounted()">
+<div class="container mt-4" id="app" v-scope="App(store)" @vue:mounted="mounted()">
 
   <div class="row">
     <main class="col-lg-8 col-xs-12 mb-5">
-      <div class="card" >
 
-        <div class="card-header">
-          <small>  Информация загружена из вашей анкеты для карьерного центра, но вы можете отредактировать ее так, как вам нравится.</small>
+      <div class="card" v-if="model.student_id">
+
+        <!-- Заголовок с пояснением и прелоадером -->
+        <div class="card-header" >
+          <small v-if="store.sections.bio=='ready'">  Информация загружена из вашей анкеты для карьерного центра, но вы можете отредактировать ее так, как вам нравится.</small>
+          <div v-if="store.sections.bio=='loading'" class="progress" role="progressbar" aria-label="Animated striped example" style="height: 25px" ><div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 100%"></div></div>
         </div>
+
 
         <div class="list-group list-group-flush">
 
@@ -57,12 +62,7 @@
 
           <section class="list-group-item p-4 pb-4" v-scope="PhotoSection(store)"></section>
 
-          <section class="list-group-item">
-
-            <h3>Готовое резюме</h3>
-            <article v-html="model.resume"></article>
-
-          </section>
+          <section class="list-group-item " v-scope="PreviewSection(store)"></section>
 
         </div>
       </div>
@@ -96,8 +96,8 @@
 
   const state = {
     sections: {
-      about: "ready",
       bio: "ready",
+      about: "ready",
       check: "ready",
       cover: "ready",
       legend: "ready",
@@ -121,5 +121,4 @@
 
 </body>
 </html>
-
 

@@ -4,7 +4,7 @@ AUTHURL = "https://hhgate.onrender.com/auth"
 
 showdown = new showdown.Converter()
 
-function App() {
+function App(store) {
 
     return {
 
@@ -31,6 +31,7 @@ function App() {
             student_age: "23",
             student_location: "",
             student_motivation: "",
+            student_photo_url: "",
 
             legend_on: false,
             legend_type: "ITDEPARTMENT",
@@ -67,6 +68,7 @@ function App() {
             hh_vacancy_url: "https://hh.ru/vacancy/111420778",
             hh_id: "",
             hh_photo_id: "",
+
             hh_portfolio_id: "",
             hh_code: "",
             hh_access_token: "",
@@ -88,6 +90,8 @@ function App() {
 
 
         load() {
+
+            store.setStatus("bio", "loading")
 
             axios.post(BASICURL, {"student_id": this.model.student_id + ""})
                 .then(response => {
@@ -115,6 +119,8 @@ function App() {
                     this.model.skill_set = data.skills.map(skill => ({text: skill, id: 0}))
 
                     this.buildResume()
+
+                    store.setStatus("bio", "ready")
 
                 })
 
