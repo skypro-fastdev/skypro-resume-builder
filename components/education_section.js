@@ -13,10 +13,10 @@ function  EducationSection() {
                 <input type="text" class="form-control" v-model="model.education_industry" placeholder="Специальность, напр 'Врач'">
             </div>
             <div class="col-3 pt-3">
-                <input type="text" class="form-control" v-model="model.education_from" placeholder="Год с ...">
+                <input type="text" class="form-control" v-model="model.education_from" placeholder="2010-10-01">
             </div>
             <div class="col-3 pt-3">
-                <input type="text" class="form-control" v-model="model.education_to"  placeholder="Год до ...">
+                <input type="text" class="form-control" v-model="model.education_to"  placeholder="2020-10-01">
             </div>
         </div>
         

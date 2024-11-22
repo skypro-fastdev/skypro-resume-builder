@@ -1,11 +1,12 @@
 BASICURL = "https://fastapi-cors-proxy.onrender.com/api/exec?v=BASICINFO"
 
+AUTHURL = "https://hhgate.onrender.com/auth"
+
 showdown = new showdown.Converter()
 
 function App() {
 
     return {
-
 
         model: {
             student_id: null,
@@ -13,7 +14,8 @@ function App() {
             student_first_name: "",
             student_last_name: "",
             student_full_name: "",
-            student_birth_date: new Date(""),
+            student_birth_date: "1991-10-21",
+            student_english_level: "A1",
             profession: "",
             profession_pretty: "",
 
@@ -61,9 +63,14 @@ function App() {
             resume_checklist: [],
             resume_cover: "",
 
-            hh_vacancy_url: "https://hh.ru/vacancy/111420778",
             hh_client_id: "S754EPR26AICHFF4GM9QG952T281ALITK235VT2R2CF3KU4O0BMH2UKKJF16Q7GS",
+            hh_vacancy_url: "https://hh.ru/vacancy/111420778",
+            hh_id: "",
+            hh_photo_id: "",
+            hh_portfolio_id: "",
             hh_code: "",
+            hh_access_token: "",
+            vacancy_link: "",
 
         },
 
@@ -74,7 +81,7 @@ function App() {
         getHHCodeFromURL() {
             const code = new URLSearchParams(window.location.search).get('code')
             if (code) {
-                console.log(`Получен OAUTH для HH ${code}`)
+                console.log(`Получен OAUTH код для HH ${code}`)
                 return code
             }
         },
@@ -128,8 +135,36 @@ function App() {
                 this.loadFromLocalStorage()
             }
 
+            if (this.model.hh_code!=="" && this.model.hh_access_token==="") {
+                console.log("Есть HH код, но нет токена, пора запускать авторизацию")
+                this.auth()
+            }
+
             setInterval(this.buildResume, 2000)
             setInterval(this.saveToLocalStorage, 5000)
+
+        },
+
+        auth(){
+
+            const requestData = {student_id: this.model.student_id, hh_code: this.model.hh_code}
+
+            console.log(requestData)
+
+            axios.post(AUTHURL, requestData)
+
+                .then(response => {
+                    console.log("Выполнена загрузка"+ JSON.stringify(response))
+                    this.model.hh_access_token = response.data.access_token;
+
+
+                })
+                .catch(error => {
+                    console.log(`Произошла ошибка ${error} ${JSON.stringify(error.response)} `)
+                    alert("Произошла ошибка при подключении. Токены сброшены")
+                    this.model.hh_access_token = ""
+                    this.model.hh_code = ""
+                })
 
         },
 
@@ -145,16 +180,12 @@ function App() {
             const storedModel = localStorage.getItem("model")
 
             if (storedModel) {
-
                 const modelData = JSON.parse(storedModel)
-
                 for (let key of Object.keys(this.model)) {
-
                     if (modelData[key]) {
                         this.model[key] = modelData[key]
                     }
                 }
-
             }
         },
 

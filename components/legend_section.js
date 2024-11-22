@@ -44,10 +44,10 @@ function  LegendSection(store) {
                     <input type="text" v-model="model.recent_job_industry"  class="form-control" placeholder="Индустрия, напр 'Производство мебели'">
                   </div>
                   <div class="col-md-3 col-xs-6 pt-3">
-                    <input type="text" v-model="model.recent_job_from" class="form-control" placeholder="Год с ...">
+                    <input type="text" v-model="model.recent_job_from" class="form-control" placeholder="2015-01-01">
                   </div>
                   <div class="col-md-3 col-xs-6 pt-3">
-                    <input type="text" v-model="model.recent_job_to" class="form-control" placeholder="Год до ...">
+                    <input type="text" v-model="model.recent_job_to" class="form-control" placeholder="2019-01-01">
                   </div>
                 </div>
     

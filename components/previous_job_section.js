@@ -18,10 +18,10 @@ function PreviousJobSection(store){
                 <input type="text" v-model="model.previous_job_industry"  class="form-control" placeholder="Индустрия, напр 'Производство мебели'">
               </div>
               <div class="col-md-3 col-xs-6 pt-3">
-                <input type="text" v-model="model.previous_job_from" class="form-control" placeholder="Год с ...">
+                <input type="text" v-model="model.previous_job_from" class="form-control" placeholder="2000-10-01">
               </div>
               <div class="col-md-3 col-xs-6 pt-3">
-                <input type="text" v-model="model.previous_job_to" class="form-control" placeholder="Год до ...">
+                <input type="text" v-model="model.previous_job_to" class="form-control" placeholder="2020-10-01">
               </div>
             </div>
 
@@ -29,15 +29,15 @@ function PreviousJobSection(store){
             
                 <small>ИИ опишет обязанности и приукрасит достижения так, как это нравится эйчару и работодателю.  Вы сможете отредактировать их или уточнть задачу для ИИ</small>
                 
-                <details class="mt-2">
-                <summary>Тонкая настройка</summary>
-                <textarea v-model="model.previous_job_prompt"  cols="30" rows="4" class="form-control"></textarea>
-                </details>
+<!--                <details class="mt-2">-->
+<!--                <summary>Тонкая настройка</summary>-->
+<!--                <textarea v-model="model.previous_job_prompt"  cols="30" rows="4" class="form-control"></textarea>-->
+<!--                </details>-->
 
-                <p>
+                <div class="mt-3">
                     <button v-if="store.sections.previous_job=='ready'" @click="load()" class="btn btn-dark" >✨ Сгенерировать</button>
                     <button v-if="store.sections.previous_job=='loading'"  class="btn btn-dark mt-2"disabled>Идет генерация</button>
-                </p>
+                </div>
               
             </div>
             <textarea v-model="model.previous_job_experience" class="form-control mt-3" cols="30" rows="4" placeholder="Опишите ваш опыт работы и достижения или доверьте это ИИ"></textarea>

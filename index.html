@@ -78,9 +78,7 @@
 
           <section class="list-group-item" v-scope="CoverSection(store)"></section>
 
-          <section class="list-group-item" v-scope="PublishSection(store)"></section>
-
-
+          <section class="list-group-item" v-scope="PublishSection(store)" @vue:mounted="mounted()"></section>
 
         </div>
 

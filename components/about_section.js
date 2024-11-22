@@ -30,13 +30,15 @@ function AboutSection(store) {
             <div class="alert alert-info text-muted mt-3">
               <small>ИИ опишет обязанности и приукрасит достижения так, как это нравится эйчару и работодателю.  Вы сможете отредактировать их или уточнть задачу для ИИ</small>
 
-              <details class="mt-2">
-                <summary>Тонкая настройка</summary>
-                <textarea  v-model="model.about_prompt"  cols="30" rows="4" class="form-control"></textarea>
-              </details>
-
-              <button @click="load()" class="btn btn-dark mt-2" v-if="store.sections.about=='ready'">✨ Сгенерировать {{model.isLoading}}</button>
-              <button class="btn btn-dark mt-2" v-if="store.sections.about=='loading'" disabled>Идет генерация</button>
+<!--              <details class="mt-2">-->
+<!--                <summary>Тонкая настройка</summary>-->
+<!--                <textarea  v-model="model.about_prompt"  cols="30" rows="4" class="form-control"></textarea>-->
+<!--              </details>-->
+              <div>
+                  <button @click="load()" class="btn btn-dark mt-2" v-if="store.sections.about=='ready'">✨ Сгенерировать {{model.isLoading}}</button>
+                  <button class="btn btn-dark mt-2" v-if="store.sections.about=='loading'" disabled>Идет генерация</button>
+              </div>
+              
             </div>
 
             <textarea v-model="model.about" class="form-control mt-3" cols="30" rows="4" placeholder="Расскажите про себя или доверьте это ИИ"></textarea>
