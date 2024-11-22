@@ -117,9 +117,13 @@ function App(store) {
                     this.model.previous_job_organisation = data.recent_organisation;
                     this.model.previous_job_position = data.recent_position;
                     this.model.previous_job_industry = data.recent_industry;
+                    this.model.previous_job_from = data.recent_job_from;
+                    this.model.previous_job_to = data.recent_job_to;
 
                     this.model.education_organisation = data.education_organisation
                     this.model.education_industry = data.education_industry
+                    this.model.education_from = data.education_from
+                    this.model.education_to = data.education_to
                     this.model.skill_set = data.skills.map(skill => skill.text)
 
                     this.buildResume()
