@@ -1,4 +1,3 @@
-COVERURL = "https://fastapi-cors-proxy.onrender.com/api/exec?v=COVER"
 
 function CoverSection(store){
 
@@ -10,7 +9,7 @@ function CoverSection(store){
             <div class="alert alert-info text-muted mt-3">
               <small>ИИ напишет сопроводительное письмо, которое понравится эйчару и работодателю.  Расскажет, почему вы заинтересовались этой вакансией и почему именно вы на нее подходите.</small>
             </div>
-            <input type="text" v-model="model.hh_vacancy_url" class="form-control" placeholder="Ссылка на вакансию или ее ID">
+            <input type="text" v-model="model.resume_cover_vacancy_url" class="form-control" placeholder="Ссылка на вакансию или ее ID">
             
             <div class="mt-3" v-if="model.resume_cover!=''">
                 <textarea v-model="model.resume_cover" rows="5" class="form-control"></textarea>
@@ -23,9 +22,9 @@ function CoverSection(store){
         
         `,
 
-        hh_vacancy_id(){
+        get_vacancy_id(){
             const regex = /\d{4,}/g;
-            const matches = this.model.hh_vacancy_url.match(regex);
+            const matches = this.model.resume_cover_vacancy_url.match(regex);
             if (!matches) { console.log("Не удалось распарсить url"); return null; }
             return matches.reduce((longest, current) => {
                 return current.length > longest.length ? current : longest;
@@ -41,8 +40,7 @@ function CoverSection(store){
                 student_id: this.model.student_id,
                 resume: this.model.resume_markdown,
                 profession: this.model.profession,
-                vacancy_hh_id: this.hh_vacancy_id(),
-
+                vacancy_hh_id: this.get_vacancy_id(),
             }
 
             console.log(requestData)

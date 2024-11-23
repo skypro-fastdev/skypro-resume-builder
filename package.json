@@ -2,5 +2,6 @@
   "name": "skypro-resume-builder",
   "version": "1.0.0",
   "dependencies": {
+    "jslint": "^0.12.1"
   }
 }

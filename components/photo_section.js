@@ -1,4 +1,4 @@
-UPLOADBASEURL = "https://hhgate.onrender.com/photo/"
+
 function PhotoSection(){
 
     return {

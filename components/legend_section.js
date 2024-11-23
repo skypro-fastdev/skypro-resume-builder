@@ -1,4 +1,4 @@
-LEGENDURL= "https://fastapi-cors-proxy.onrender.com/api/exec?v=EXPERIENCE_LEGEND"
+
 function  LegendSection(store) {
 
     return {

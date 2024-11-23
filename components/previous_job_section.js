@@ -1,4 +1,3 @@
-PREVIOUSJOBURL = "https://fastapi-cors-proxy.onrender.com/api/exec?v=EXPERIENCE_REAL"
 
 function PreviousJobSection(store){
 

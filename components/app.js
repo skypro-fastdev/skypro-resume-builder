@@ -1,6 +1,11 @@
 BASICURL = "https://fastapi-cors-proxy.onrender.com/api/exec?v=BASICINFO"
-
+CHECKURL = "https://fastapi-cors-proxy.onrender.com/api/exec?v=CHECK_RESUME_BY_PROFESSION"
+LEGENDURL= "https://fastapi-cors-proxy.onrender.com/api/exec?v=EXPERIENCE_LEGEND"
+COVERURL = "https://fastapi-cors-proxy.onrender.com/api/exec?v=COVER"
+PREVIOUSJOBURL = "https://fastapi-cors-proxy.onrender.com/api/exec?v=EXPERIENCE_REAL"
 AUTHURL = "https://hhgate.onrender.com/auth"
+UPLOADBASEURL = "https://hhgate.onrender.com/photo/"
+PUBLISHURL = "https://hhgate.onrender.com/resume"
 
 showdown = new showdown.Converter()
 
@@ -9,6 +14,9 @@ function App(store) {
     return {
 
         model: {
+
+            // Персональные данные
+
             student_id: null,
             student_gender: "",
             student_first_name: "",
@@ -19,18 +27,23 @@ function App(store) {
             profession: "",
             profession_pretty: "",
 
-            about: "",
-            about_prompt: "",
-
-            skill_set: [],
-
             student_mail: "",
             student_phone: "",
             student_tg: "",
             student_vk: "",
             student_age: "23",
             student_location: "",
-            student_motivation: "",
+
+            // Блок "О Себе"
+
+            about: "",
+            about_prompt: "",
+
+            // Блок "Навыки"
+
+            skill_set: [],
+
+            // Блок, описывающий легенду (или свежую работу)
 
             legend_on: false,
             legend_type: "ITDEPARTMENT",
@@ -39,44 +52,58 @@ function App(store) {
             recent_job_organisation: "",
             recent_job_position: "",
             recent_job_industry: "",
-            recent_job_from: "",
-            recent_job_to: "",
+            recent_job_from: "2024-02-15",
+            recent_job_to: "2024-10-24",
             recent_job_experience: "",
             recent_job_prompt: "",
+
+            // Блок, описывающий реальную работу
 
             previous_job_type: "legend",
             previous_job_organisation: "",
             previous_job_position: "",
             previous_job_industry: "",
-            previous_job_from: 2020,
-            previous_job_to: 2022,
+            previous_job_from: "2022-04-16",
+            previous_job_to: "2024-08-03",
             previous_job_experience: "",
             previous_job_prompt: "",
+
+            // Блок, описывающий реальную работу
 
             education_organisation: "",
             education_from: "",
             education_to: "",
+            education_faculty: "",
             education_industry: "",
+
+            // Сгенерированное резюме
 
             resume_markdown: "",
             resume: "",
             resume_checklist: [],
-            resume_cover: "",
+
+            // Поля для генерации ковра
+
+            resume_cover_vacancy_url: "https://hh.ru/vacancy/111420778",   // Вакансия, для которой пишем сопрводительное
+            student_motivation: "",     // Мотивация из таблички пользовтеля, используется для cover-letter
+            resume_cover_prompt: "",    // Уточнение прмпта от пользователя
+            resume_cover: "",           // Готовое сгенерированное сопроводительное письмо  cover-letter
+
+            // Сгенерированное резюме
 
             hh_client_id: "S754EPR26AICHFF4GM9QG952T281ALITK235VT2R2CF3KU4O0BMH2UKKJF16Q7GS",
-            hh_vacancy_url: "https://hh.ru/vacancy/111420778",
-            hh_id: "",
+            hh_access_token: "",    // код, который отдает OAUTH чтобы по нему получить токен
+            hh_resume_published_id: "",   //
 
-            // Фотография
+            hh_portfolio_id: "",
+            hh_code: "",            // код, который отдает HH чтобы по нему получить токен через OAUTH
+            vacancy_link: "",
+
+            // Фотография для отправки в резюме
+
             hh_photo_id: "",
             hh_photo_small: "",
             hh_photo_medium: "",
-
-
-            hh_portfolio_id: "",
-            hh_code: "",
-            hh_access_token: "",
-            vacancy_link: "",
 
         },
 
@@ -91,6 +118,8 @@ function App(store) {
                 return code
             }
         },
+
+
 
 
         load() {

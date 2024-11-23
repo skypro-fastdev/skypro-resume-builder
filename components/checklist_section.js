@@ -1,4 +1,3 @@
-CHECKURL = "https://fastapi-cors-proxy.onrender.com/api/exec?v=CHECK_RESUME_BY_PROFESSION"
 
 function ChecklistSection(store){
 
