@@ -19,6 +19,13 @@ function  LegendSection(store) {
               
               <div class="alert alert-info text-muted mt-3">
                 Для работы нужен опыт, а для опыта работа? Не беда, мы создадим вам убедительную легенду!
+                
+                <details class="mt-2">
+                <summary>Тонкая настройка</summary>
+                <textarea v-model="model.legend_prompt"  cols="30" rows="4" class="form-control"></textarea>
+                </details>               
+                
+                
               </div>  
               
               <div class="mt-3 mb-3"><select v-model="model.legend_type" class="form-select">
@@ -27,7 +34,7 @@ function  LegendSection(store) {
                     <option value="FREELANCE">Фриланс проекты</option>
                     <option value="NO">Без легенды</option>
                 </select></div>
-              
+                
                 <p>
                     <button v-if="store.sections.legend=='ready'" @click="load()" class="btn btn-dark" >✨ Сгенерировать</button>
                     <button v-if="store.sections.legend=='loading'"  class="btn btn-dark mt-2"disabled>Идет генерация</button>
@@ -66,6 +73,7 @@ function  LegendSection(store) {
             const requestData = {
                 student_id: this.model.student_id,
                 legend_type: this.model.legend_type,
+                prompt: this.model.legend_prompt,
             }
 
             console.log(requestData)

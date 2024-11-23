@@ -47,6 +47,7 @@ function App(store) {
 
             legend_on: false,
             legend_type: "ITDEPARTMENT",
+            legend_prompt: "",
 
             recent_job_type: "real",
             recent_job_organisation: "",
@@ -71,6 +72,7 @@ function App(store) {
             // Блок, описывающий реальную работу
 
             education_organisation: "",
+            education_level: "higher",
             education_from: "",
             education_to: "",
             education_faculty: "",

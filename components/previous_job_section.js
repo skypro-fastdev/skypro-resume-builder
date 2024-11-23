@@ -1,5 +1,4 @@
-
-function PreviousJobSection(store){
+function PreviousJobSection(store) {
 
     return {
 
@@ -28,10 +27,10 @@ function PreviousJobSection(store){
             
                 <small>ИИ опишет обязанности и приукрасит достижения так, как это нравится эйчару и работодателю.  Вы сможете отредактировать их или уточнть задачу для ИИ</small>
                 
-<!--                <details class="mt-2">-->
-<!--                <summary>Тонкая настройка</summary>-->
-<!--                <textarea v-model="model.previous_job_prompt"  cols="30" rows="4" class="form-control"></textarea>-->
-<!--                </details>-->
+                <details class="mt-2">
+                <summary>Тонкая настройка</summary>
+                <textarea v-model="model.previous_job_prompt"  cols="30" rows="4" class="form-control"></textarea>
+                </details>
 
                 <div class="mt-3">
                     <button v-if="store.sections.previous_job=='ready'" @click="load()" class="btn btn-dark" >✨ Сгенерировать</button>
@@ -46,10 +45,16 @@ function PreviousJobSection(store){
 
             store.setStatus("previous_job", "loading")
 
-            axios.post(PREVIOUSJOBURL, {student_id: this.model.student_id, profession: this.model.profession, prompt: this.model.previous_job_prompt})
+            const requestData = {
+                student_id: this.model.student_id,
+                profession: this.model.profession,
+                prompt: this.model.previous_job_prompt
+            }
+
+            axios.post(PREVIOUSJOBURL, {requestData})
 
                 .then(response => {
-                    console.log("Выполнена загрузка"+ JSON.stringify(response))
+                    console.log("Выполнена загрузка" + JSON.stringify(response))
                     this.model.previous_job_experience = response.data.response;
                     store.setStatus("previous_job", "ready")
 
@@ -63,10 +68,6 @@ function PreviousJobSection(store){
         }
 
     }
-
-
-
-
 
 
 }
