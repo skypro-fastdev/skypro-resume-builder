@@ -8,7 +8,7 @@ function  LegendSection(store) {
             <h3 class="w-50 float-start">Легенда</h3>
 
             <div class="form-check form-switch w-50 float-end pt-1">
-              <input class="form-check-input" type="checkbox" role="switch" id="legendSwitch" v-model="model.legend_on">
+              <input class="form-check-input" type="checkbox" role="switch" id="legendSwitch" v-model="model.legend_on" @click="fillFields()">
               <label class="form-check-label" for="legendSwitch">Добавить легенду</label>
             </div>
             
@@ -28,7 +28,9 @@ function  LegendSection(store) {
                 
               </div>  
               
-              <div class="mt-3 mb-3"><select v-model="model.legend_type" class="form-select">
+              <div class="mt-3 mb-3">
+              
+                <select @change="fillFields()" v-model="model.legend_type" class="form-select">
                     <option value="ITDEPARTMENT">Работа в IT отделе работодателя</option>
                     <option value="INTERNSHIP">Стажировка по новой специальности</option>
                     <option value="FREELANCE">Фриланс проекты</option>
@@ -65,6 +67,31 @@ function  LegendSection(store) {
             </header>
         
         `,
+
+        fillFields() {
+
+            this.model.recent_job_position = this.model.profession_pretty
+
+            if (this.model.legend_type==="ITDEPARTMENT") {
+
+                this.model.recent_job_industry = this.model.previous_job_industry
+                this.model.recent_job_organisation = this.model.previous_job_organisation
+
+            }else if (this.model.legend_type==="INTERNSHIP"){
+
+                this.model.recent_job_industry = "<заполните поле>"
+                this.model.recent_job_organisation = "<заполните поле>"
+
+            }else if (this.model.legend_type==="FREELANCE"){
+
+                this.model.recent_job_position = this.model.profession_pretty + " на фрилансе"
+                this.model.recent_job_industry = "Разные компании"
+                this.model.recent_job_organisation = "Фриланс"
+
+            }
+
+
+        },
 
         load() {
 
