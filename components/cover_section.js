@@ -49,7 +49,7 @@ function CoverSection(store) {
                 resume: this.model.resume_markdown,
                 profession: this.model.profession,
                 vacancy_hh_id: this.get_vacancy_id(),
-                prompt: this.resume_cover_prompt
+                prompt: this.model.resume_cover_prompt
             }
 
             console.log(requestData)

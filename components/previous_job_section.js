@@ -51,7 +51,7 @@ function PreviousJobSection(store) {
                 prompt: this.model.previous_job_prompt
             }
 
-            axios.post(PREVIOUSJOBURL, {requestData})
+            axios.post(PREVIOUSJOBURL, requestData)
 
                 .then(response => {
                     console.log("Выполнена загрузка" + JSON.stringify(response))
