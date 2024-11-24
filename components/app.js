@@ -108,7 +108,7 @@ function App(store) {
             get student_first_name() { return this.student_full_name.split(" ")[1] },
             get student_last_name()  { return this.student_full_name.split(" ")[0] },
 
-            get profession_roles(){
+            get professional_roles(){
                 // watch here for new professions https://api.hh.ru/professional_roles
                 if (this.profession === "DA") { return ["156", "10", "164"]}
                 else if (this.profession === "PD") { return ["96"]}
