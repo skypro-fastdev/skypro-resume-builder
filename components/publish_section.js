@@ -14,7 +14,7 @@ function PublishSection(store) {
         </div>
         
 
-         <div v-if="model.hh_access_token && !model.hh_id">
+         <div v-if="model.hh_access_token && !model.hh_resume_published_id">
             <div class="alert alert-info text-muted mt-3">
                 <small>Связь c HeadHunter установлена. Проверьте резюме перед публикацией!</small>
                 
