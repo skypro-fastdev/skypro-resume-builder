@@ -22,7 +22,7 @@ function PublishSection(store) {
                </div>
          </div>
          
-         <div v-if="model.hh_id">
+         <div v-if="model.hh_resume_published_id">
             <div class="alert alert-info text-muted mt-2">
                 <small>Резюме опубликовано</small>
               
