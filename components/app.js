@@ -19,8 +19,6 @@ function App(store) {
 
             student_id: null,
             student_gender: "",
-            student_first_name: "",
-            student_last_name: "",
             student_full_name: "",
             student_birth_date: "1991-10-21",
             student_english_level: "A1",
@@ -107,7 +105,26 @@ function App(store) {
             hh_photo_small: "",
             hh_photo_medium: "",
 
+            get student_first_name() { return this.student_full_name.split(" ")[1] },
+            get student_last_name()  { return this.student_full_name.split(" ")[0] },
+
+            get profession_roles(){
+                // watch here for new professions https://api.hh.ru/professional_roles
+                if (this.profession === "DA") { return ["156", "10", "164"]}
+                else if (this.profession === "PD") { return ["96"]}
+                else if (this.profession === "WD") { return ["96"]}
+                else if (this.profession === "JD") { return ["96"]}
+                else if (this.profession === "QA") { return ["124"]}
+                else if (this.profession === "IM") { return ["68", "163"]}
+                else if (this.profession === "GD") { return ["34"]}
+                else if (this.profession === "PM") { return ["107"]}
+                else if (this.profession === "HR") { return ["69"]}
+            },
+
         },
+
+
+
 
         getIdFromURL() {
             return new URLSearchParams(window.location.search).get('student_id')

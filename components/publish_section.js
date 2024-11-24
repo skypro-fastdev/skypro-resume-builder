@@ -30,7 +30,6 @@ function PublishSection(store) {
             </div>
          </div>     
          
-             
          <button class="btn btn-dark w-100 mt-2" @click="validate()">Проверить заполнение полей</button>
          <button class="btn btn-outline-dark w-100 mt-3" @click="reset_hh_codes()">Сбросить авторизацию</button>
 
@@ -40,8 +39,7 @@ function PublishSection(store) {
 
             const requestData = JSON.parse(JSON.stringify(this.model));
 
-            requestData["student_first_name"] = this.model.student_full_name.split(" ")[1]
-            requestData["student_last_name"] = this.model.student_full_name.split(" ")[0]
+            console.log(`Отправляем на публикацию ${JSON.stringify(requestData)}`)
 
             axios.post(PUBLISHURL, requestData )
 
@@ -55,7 +53,6 @@ function PublishSection(store) {
                 alert("Произошла ошибка при публикации. ")
 
             })
-
         },
 
         /**
