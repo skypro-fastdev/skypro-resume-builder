@@ -79,8 +79,8 @@ function  LegendSection(store) {
 
             }else if (this.model.legend_type==="INTERNSHIP"){
 
-                this.model.recent_job_industry = "<заполните поле>"
-                this.model.recent_job_organisation = "<заполните поле>"
+                this.model.recent_job_industry = "<заполните после генерации>"
+                this.model.recent_job_organisation = "<заполните после генерации>"
 
             }else if (this.model.legend_type==="FREELANCE"){
 

@@ -88,6 +88,8 @@ function PublishSection(store) {
 
             let errors = []
 
+            if (!validateNotEmpty(this.model.education_faculty)) { errors.push("Проверьте поле Факультет в разделе Образование"); }
+
             if (!validateShortDate(this.model.education_from)) { errors.push("Проверьте даты в разделе Образование, укажите Год в формате 2024 "); }
             if (!validateShortDate(this.model.education_to)) { errors.push("Проверье даты в разделе Образование, укажите Год в формате 2024 "); }
 
