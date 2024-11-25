@@ -18,7 +18,7 @@ function App(store) {
             // Персональные данные
 
             student_id: null,
-            student_gender: "",
+            student_gender: "male",
             student_full_name: "",
             student_birth_date: "1991-10-21",
             student_english_level: "A1",
@@ -122,8 +122,6 @@ function App(store) {
             },
 
         },
-
-
 
 
         getIdFromURL() {

@@ -11,31 +11,32 @@ function PublishSection(store) {
             <small>Предоставьте нам доступ к HH и мы сами опубликуем ваше резюме. Обещаем не шалить!</small>
             </div>
             <p><a :href="'https://hh.ru/oauth/authorize?response_type=code&client_id='+model.hh_client_id" class="btn btn-dark">🔐 Предоставить доступ</a></p>
-        </div>
+         </div>
         
-
          <div v-if="model.hh_access_token && !model.hh_resume_published_id">
             <div class="alert alert-info text-muted mt-3">
                 <small>Связь c HeadHunter установлена. Проверьте резюме перед публикацией!</small>
-                
-                <button class="btn btn-dark w-100 btn-lg" @click="publish()"> Опубликовать на HH</button>
-               </div>
+            </div>    
+                <button v-if="store.sections.publish=='ready'" class="btn btn-dark w-100 btn-lg" @click="publish()"> Опубликовать на HH</button>
+                <button v-if="store.sections.publish=='loading'" class="btn btn-dark w-100 btn-lg" disabled>Идет публикация</button>      
          </div>
          
          <div v-if="model.hh_resume_published_id">
             <div class="alert alert-info text-muted mt-2">
                 <small>Резюме опубликовано</small>
-              
-                <p><a :href="'https://hh.ru/resume/'+model.hh_resume_published_id.split('/').pop()" class="btn btn-dark">Посмотреть резюме на hh.ru</a></p>
             </div>
+            <p><a :href="'https://hh.ru/resume/'+model.hh_resume_published_id.split('/').pop()" class="btn btn-primary w-100 btn-lg" target="_blank">Посмотреть резюме на hh.ru</a></p>
          </div>     
          
-         <button class="btn btn-dark w-100 mt-2" @click="validate()">Проверить заполнение полей</button>
-         <button class="btn btn-outline-dark w-100 mt-3" @click="reset_hh_codes()">Сбросить авторизацию</button>
-
+         <div class="mt-3">
+             <button class="btn btn-outline-dark w-100 mt-2" @click="validate()">Проверить заполнение полей</button>
+             <button class="btn btn-outline-dark w-100 mt-2" @click="reset_hh_codes()">Сбросить авторизацию</button>
+         </div>
         `,
 
         publish() {
+
+            store.setStatus("publish", "loading")
 
             const requestData = JSON.parse(JSON.stringify(this.model));
 
@@ -46,11 +47,16 @@ function PublishSection(store) {
             .then(response => {
                 console.log("Отправляем"+ JSON.stringify(response))
                 this.model.hh_resume_published_id = response.data.hh_id;
+                store.setStatus("publish", "ready")
 
             })
+
             .catch(error => {
-                console.log(`Ошибка при публикации ${error} ${JSON.stringify(error.response)} `)
-                alert("Произошла ошибка при публикации. ")
+                const responseData = error.response
+                console.log(`Ошибка при публикации ${error}`)
+                console.log(responseData.data.detail.errors)
+                store.setStatus("publish", "ready")
+                alert(`Произошла ошибка при публикации: ${responseData.data.detail.errors[0].value} –  ${responseData.data.detail.errors[0].description}`)
 
             })
         },
