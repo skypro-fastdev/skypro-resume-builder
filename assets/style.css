@@ -7,3 +7,12 @@ body {
    background-color: #eedbf7;
    border: none;
 }
+
+.skills__remove-icon {
+   opacity: 0.2;
+   cursor: pointer;
+}
+
+.skills__remove-icon:hover {
+   opacity: 0.8;
+}

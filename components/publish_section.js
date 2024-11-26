@@ -49,6 +49,8 @@ function PublishSection(store) {
                 this.model.hh_resume_published_id = response.data.hh_id;
                 store.setStatus("publish", "ready")
 
+                this.reportPublished()  // Сообщаем серверу, что опубликовались
+
             })
 
             .catch(error => {
@@ -60,6 +62,18 @@ function PublishSection(store) {
                 alert(`Произошла ошибка при публикации: ${JSON.stringify(responseData.data.detail.errors)}`)
 
             })
+        },
+
+        reportPublished(){
+
+            const requestData = {
+                student_id: this.model.student_id,
+                hh_resume_published_id: this.model.hh_resume_published_id,
+                status: "PUBLISHED",
+            }
+
+            axios.post(UPDATEURL, {requestData})
+
         },
 
         /**
