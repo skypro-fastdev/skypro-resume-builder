@@ -42,7 +42,9 @@ function AboutSection(store) {
             </div>
 
             <textarea v-model="model.about" class="form-control mt-3" cols="30" rows="4" placeholder="Расскажите про себя или доверьте это ИИ"></textarea>
-
+            <div class="mt-2" v-if="model.about.length > 2">
+              <small>⬆️ Добавьте сюда ссылку на портфолио (если дизайнер) или Github (если разрабтчик) после генерации</small>
+            </div>
         `
 
     }
