@@ -7,19 +7,24 @@ function PreviousJobSection(store) {
             <h3>Прошлое место работы</h3>
             <div class="row">
               <div class="col-md-6 col-xs-12 pt-3">
+                <small class="text-muted">Работодатель</small>
                 <input type="text"  v-model="model.previous_job_organisation" class="form-control" placeholder="Работодатель, напр ООО Вишенка">
               </div>
               <div class="col-md-6 col-xs-12 pt-3">
+                <small class="text-muted">Должность</small>
                 <input type="text" v-model="model.previous_job_position" class="form-control" placeholder="Должность">
               </div>
               <div class="col-md-6 col-xs-12 pt-3">
+                <small class="text-muted">Индустрия</small>
                 <input type="text" v-model="model.previous_job_industry"  class="form-control" placeholder="Индустрия, напр 'Производство мебели'">
               </div>
               <div class="col-md-3 col-xs-6 pt-3">
                 <input type="text" v-model="model.previous_job_from" class="form-control" placeholder="2000-10-01">
+                <small class="text-muted">{{ ruDate(model.previous_job_from) }}</small>
               </div>
               <div class="col-md-3 col-xs-6 pt-3">
                 <input type="text" v-model="model.previous_job_to" class="form-control" placeholder="2020-10-01">
+                <small class="text-muted">{{ ruDate(model.previous_job_to) }}</small>
               </div>
             </div>
 

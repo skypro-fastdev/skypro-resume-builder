@@ -8,7 +8,7 @@ AUTHURL = "https://hhgate.onrender.com/auth"
 UPLOADBASEURL = "https://hhgate.onrender.com/photo/"
 PUBLISHURL = "https://hhgate.onrender.com/resume"
 
-showdown = new showdown.Converter()
+
 
 function App(store) {
 
@@ -52,8 +52,8 @@ function App(store) {
             recent_job_organisation: "",
             recent_job_position: "",
             recent_job_industry: "",
-            recent_job_from: "2024-02-15",
-            recent_job_to: "2024-10-24",
+            recent_job_from: "",
+            recent_job_to: "",
             recent_job_experience: "",
             recent_job_prompt: "",
 
@@ -167,8 +167,8 @@ function App(store) {
 
                     this.model.education_organisation = data.education_organisation
                     this.model.education_industry = data.education_industry
-                    this.model.education_from = data.education_from
-                    this.model.education_to = data.education_to
+                    this.model.education_from = data.education_from.slice(0,4)
+                    this.model.education_to = data.education_to.slice(0,4)
 
                     this.model.skill_set = data.skills.map(skill => skill.text)
 
@@ -200,7 +200,7 @@ function App(store) {
                 this.auth()
             }
 
-            setInterval(this.buildResume, 2000)
+
             setInterval(this.saveToLocalStorage, 5000)
 
         },
@@ -249,59 +249,6 @@ function App(store) {
             }
         },
 
-        buildResume() {
-
-            const rawMarkdown = `
-            
-            ##${this.model.student_full_name}
-            
-            **${this.model.profession_pretty}, ${this.model.student_location}**
-            
-            ${this.model.student_phone ? ' Телефон: ' + this.model.student_phone : ''}
-            
-            ${this.model.student_mail ? ' Почта: ' + this.model.student_mail : ''}
-            
-            ${this.model.student_tg ? ' Telegram: ' + this.model.student_tg : ''}
-            
-            ${this.model.student_vk ? ' VK: ' + this.model.student_vk : ''}
-
-            ---
-            
-            ## Опыт работы
-            
-            ###${this.model.recent_job_organisation} 
-            
-            ${this.model.recent_job_position} 
-            
-            ${this.model.recent_job_from} – ${this.model.recent_job_to}
-            
-            ${this.model.recent_job_experience}
-            
-            ---
-            
-            ###${this.model.previous_job_organisation} 
-            
-            ${this.model.previous_job_position} 
-            
-            ${this.model.previous_job_from} – ${this.model.previous_job_to}
-            
-            ${this.model.previous_job_experience}
-            
-            ## Навыки
-           
-            ${this.model.skill_set ? this.model.skill_set.join(", ") : "Навыки не указаны"}             
-            
-            ## О себе
-            
-            ${this.model.about}
-            
-            `;
-
-            const composedResume = rawMarkdown.split('\n').map(line => line.trim()).join('\n').replace("```markdown", "").replace("```", "");
-            this.model.resume_markdown = composedResume;
-            this.model.resume = showdown.makeHtml(composedResume);
-
-        }
-
     }
+
 }

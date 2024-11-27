@@ -44,22 +44,26 @@ function  LegendSection(store) {
               
                 <div class="row">
                   <div class="col-md-6 col-xs-12 pt-3">
+                    <small class="text-muted">Работодатель</small>
                     <input type="text"  v-model="model.recent_job_organisation" class="form-control" placeholder="Работодатель, напр ООО Вишенка">
                   </div>
                   <div class="col-md-6 col-xs-12 pt-3">
+                    <small class="text-muted">Должность</small>
                     <input type="text" v-model="model.recent_job_position" class="form-control" placeholder="Должность">
                   </div>
                   <div class="col-md-6 col-xs-12 pt-3">
+                    <small class="text-muted">Индустрия</small>
                     <input type="text" v-model="model.recent_job_industry"  class="form-control" placeholder="Индустрия, напр 'Производство мебели'">
                   </div>
                   <div class="col-md-3 col-xs-6 pt-3">
                     <input type="text" v-model="model.recent_job_from" class="form-control" placeholder="2015-01-01">
+                    <small class="text-muted">{{ ruDate(model.recent_job_from) }}</small>
                   </div>
                   <div class="col-md-3 col-xs-6 pt-3">
                     <input type="text" v-model="model.recent_job_to" class="form-control" placeholder="2019-01-01">
+                    <small class="text-muted">{{ ruDate(model.recent_job_to) }}</small>
                   </div>
                 </div>
-    
 
                 <textarea v-model="model.recent_job_experience" class="form-control mt-3" cols="30" rows="4" placeholder="Опишите ваш опыт работы и достижения или доверьте это ИИ"></textarea>
                </div>
@@ -88,6 +92,29 @@ function  LegendSection(store) {
                 this.model.recent_job_industry = "Разные компании"
                 this.model.recent_job_organisation = "Фриланс"
 
+            }
+
+            this.updateTime()
+
+        },
+
+        updateTime() {
+
+            const dateTo = getDateRandomDaysAgo(2, 30)
+            const dateFrom = getDateRandomDaysAgo(150, 400)
+
+            this.model.recent_job_from = formatDate(dateFrom)
+            this.model.recent_job_to = formatDate(dateTo)
+
+            const previousDateTo = parseDate(this.model.previous_job_to)
+            const previousDateFrom = parseDate(this.model.previous_job_to)
+
+            console.log(dateFrom)
+            console.log(previousDateTo)
+
+            if (dateFrom < previousDateTo) {
+
+                alert("Мы сгенерировали дата начала новой работы – они раньше, чем закончилась прошлая. Возможно, это стоит поправить :)")
             }
 
 

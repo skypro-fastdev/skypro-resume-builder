@@ -25,6 +25,8 @@
   <script src="components/publish_section.js" type="text/javascript"></script>
   <script src="components/preview_section.js" type="text/javascript"></script>
 
+  <script src="assets/utils.js" type="text/javascript"></script>
+
   <!-- Загружаем стили -->
   <link rel="stylesheet" href="/assets/bootstrap.min.css" type="text/css">
   <link rel="stylesheet" href="assets/style.css" type="text/css">
@@ -87,7 +89,7 @@
 
           <section class="list-group-item p-4 pb-4" v-scope="PhotoSection(store)"></section>
 
-          <section class="list-group-item " v-scope="PreviewSection(store)"></section>
+          <section class="list-group-item " v-scope="PreviewSection(store)" @vue:mounted="mounted()"></section>
 
         </div>
       </div>
