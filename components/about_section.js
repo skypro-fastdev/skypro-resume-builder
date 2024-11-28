@@ -8,7 +8,24 @@ function AboutSection(store) {
 
             store.setStatus("about", "loading")
 
-            axios.post(ABOUTURL, {"student_id": this.model.student_id, "prompt": this.model.about_prompt})
+            const requestData = {
+
+                student_id: this.model.student_id,
+
+                previous_job_position: this.model.previous_job_position,
+                previous_job_position: this.model.previous_job_position,
+                previous_job_industry: this.model.previous_job_industry,
+
+                education_organisation: this.model.education_organisation,
+                education_industry: this.model.education_industry,
+
+                student_location: this.model.student_location,
+                student_gender: this.model.student_gender,
+                prompt: this.model.about_prompt,
+
+            }
+
+            axios.post(ABOUTURL, requestData)
 
             .then(response => {
                 console.log("Выполнена загрузка"+ JSON.stringify(response))

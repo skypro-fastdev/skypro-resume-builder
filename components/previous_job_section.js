@@ -53,6 +53,15 @@ function PreviousJobSection(store) {
             const requestData = {
                 student_id: this.model.student_id,
                 profession: this.model.profession,
+
+                previous_job_organisation: this.model.previous_job_organisation,
+                previous_job_position: this.model.previous_job_position,
+                previous_job_industry: this.model.previous_job_industry,
+
+                student_location: this.model.student_location,
+                student_gender: this.model.student_gender,
+
+
                 prompt: this.model.previous_job_prompt
             }
 

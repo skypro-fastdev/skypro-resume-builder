@@ -127,6 +127,11 @@ function  LegendSection(store) {
             const requestData = {
                 student_id: this.model.student_id,
                 legend_type: this.model.legend_type,
+                recent_job_organisation: this.model.recent_job_organisation,
+                recent_job_position: this.model.recent_job_position,
+                recent_job_industry: this.model.recent_job_industry,
+                student_location: this.model.student_location,
+                student_gender: this.model.student_gender,
                 prompt: this.model.legend_prompt,
             }
 

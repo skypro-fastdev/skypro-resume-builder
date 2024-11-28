@@ -4,9 +4,9 @@ LEGENDURL= "https://fastapi-cors-proxy.onrender.com/api/exec?v=EXPERIENCE_LEGEND
 COVERURL = "https://fastapi-cors-proxy.onrender.com/api/exec?v=COVER"
 PREVIOUSJOBURL = "https://fastapi-cors-proxy.onrender.com/api/exec?v=EXPERIENCE_REAL"
 UPDATEURL = "https://fastapi-cors-proxy.onrender.com/api/exec?v=UPDATE"
-AUTHURL = "https://hhgate.onrender.com/auth"
+AUTHURL = "https://hhgate.onrender.com/auth/"
 UPLOADBASEURL = "https://hhgate.onrender.com/photo/"
-PUBLISHURL = "https://hhgate.onrender.com/resume"
+PUBLISHURL = "https://hhgate.onrender.com/resume/"
 
 
 
