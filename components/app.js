@@ -167,12 +167,11 @@ function App(store) {
 
                     this.model.education_organisation = data.education_organisation
                     this.model.education_industry = data.education_industry
-                    this.model.education_from = data.education_from.slice(0,4)
-                    this.model.education_to = data.education_to.slice(0,4)
+                    this.model.education_from = data.education_from.length > 4 ? data.education_from.slice(4) : data.education_from
+                    this.model.education_to = data.education_to.length > 4 ? data.education_to.slice(4) : data.education_to
 
                     this.model.skill_set = data.skills.map(skill => skill.text)
 
-                    this.buildResume()
 
                     store.setStatus("bio", "ready")
 
