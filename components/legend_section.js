@@ -4,22 +4,29 @@ function  LegendSection(store) {
     return {
         $template: `
             <header class="clearfix">
-            
+             
             <h3 class="w-50 float-start">Легенда</h3>
 
             <div class="form-check form-switch w-50 float-end pt-1">
               <input class="form-check-input" type="checkbox" role="switch" id="legendSwitch" v-model="model.legend_on" @click="fillFields()">
-              <label class="form-check-label" for="legendSwitch">Добавить легенду</label>
+              <label class="form-check-label" for="legendSwitch">🔥 Добавить легенду</label>
             </div>
             
+            
             </header>
+            
+            <div class="alert alert-info text-muted mt-3">
+            Для работы нужен опыт, а для опыта работа? Не беда, мы создадим вам убедительную легенду!
+            </div>
             
 
               <div  v-if="model.legend_on">
               
               <div class="alert alert-info text-muted mt-3">
-                Для работы нужен опыт, а для опыта работа? Не беда, мы создадим вам убедительную легенду!
-                
+              
+                 <p>Наш первый приоритет — помочь вам раскрыть ваш существующий опыт так, чтобы в новой профессии он стал вашей опорой. Но если вы чувствуете, что ваш опыт совсем далек от сферы IT — воспользуйтесь этой опцией.</p>
+            
+              
                 <details class="mt-2">
                 <summary>Тонкая настройка</summary>
                 <textarea v-model="model.legend_prompt"  cols="30" rows="4" class="form-control"></textarea>

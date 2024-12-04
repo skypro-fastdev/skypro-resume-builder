@@ -1,13 +1,12 @@
 BASICURL = "https://fastapi-cors-proxy.onrender.com/api/exec?v=BASICINFO"
 CHECKURL = "https://fastapi-cors-proxy.onrender.com/api/exec?v=CHECK_RESUME_BY_PROFESSION"
-LEGENDURL= "https://fastapi-cors-proxy.onrender.com/api/exec?v=EXPERIENCE_LEGEND"
+LEGENDURL = "https://fastapi-cors-proxy.onrender.com/api/exec?v=EXPERIENCE_LEGEND"
 COVERURL = "https://fastapi-cors-proxy.onrender.com/api/exec?v=COVER"
 PREVIOUSJOBURL = "https://fastapi-cors-proxy.onrender.com/api/exec?v=EXPERIENCE_REAL"
 UPDATEURL = "https://fastapi-cors-proxy.onrender.com/api/exec?v=UPDATE"
 AUTHURL = "https://hhgate.onrender.com/auth/"
 UPLOADBASEURL = "https://hhgate.onrender.com/photo/"
 PUBLISHURL = "https://hhgate.onrender.com/resume/"
-
 
 
 function App(store) {
@@ -106,20 +105,34 @@ function App(store) {
             hh_photo_small: "",
             hh_photo_medium: "",
 
-            get student_first_name() { return this.student_full_name.split(" ")[1] },
-            get student_last_name()  { return this.student_full_name.split(" ")[0] },
+            get student_first_name() {
+                return this.student_full_name.split(" ")[1]
+            },
+            get student_last_name() {
+                return this.student_full_name.split(" ")[0]
+            },
 
-            get professional_roles(){
+            get professional_roles() {
                 // watch here for new professions https://api.hh.ru/professional_roles
-                if (this.profession === "DA") { return ["156", "10", "164"]}
-                else if (this.profession === "PD") { return ["96"]}
-                else if (this.profession === "WD") { return ["96"]}
-                else if (this.profession === "JD") { return ["96"]}
-                else if (this.profession === "QA") { return ["124"]}
-                else if (this.profession === "IM") { return ["68", "163"]}
-                else if (this.profession === "GD") { return ["34"]}
-                else if (this.profession === "PM") { return ["107"]}
-                else if (this.profession === "HR") { return ["69"]}
+                if (this.profession === "DA") {
+                    return ["156", "10", "164"]
+                } else if (this.profession === "PD") {
+                    return ["96"]
+                } else if (this.profession === "WD") {
+                    return ["96"]
+                } else if (this.profession === "JD") {
+                    return ["96"]
+                } else if (this.profession === "QA") {
+                    return ["124"]
+                } else if (this.profession === "IM") {
+                    return ["68", "163"]
+                } else if (this.profession === "GD") {
+                    return ["34"]
+                } else if (this.profession === "PM") {
+                    return ["107"]
+                } else if (this.profession === "HR") {
+                    return ["69"]
+                }
             },
 
         },
@@ -167,11 +180,10 @@ function App(store) {
 
                     this.model.education_organisation = data.education_organisation
                     this.model.education_industry = data.education_industry
-                    this.model.education_from = data.education_from.length > 4 ? data.education_from.slice(4) : data.education_from
-                    this.model.education_to = data.education_to.length > 4 ? data.education_to.slice(4) : data.education_to
+                    this.model.education_from = data.education_from.length > 4 ? data.education_from.slice(0,4) : data.education_from
+                    this.model.education_to = data.education_to.length > 4 ? data.education_to.slice(0,4) : data.education_to
 
                     this.model.skill_set = data.skills.map(skill => skill.text)
-
 
                     store.setStatus("bio", "ready")
 
@@ -194,7 +206,7 @@ function App(store) {
                 this.loadFromLocalStorage()
             }
 
-            if (this.model.hh_code!=="" && this.model.hh_access_token==="") {
+            if (this.model.hh_code !== "" && this.model.hh_access_token === "") {
                 console.log("Есть HH код, но нет токена, пора запускать авторизацию")
                 this.auth()
             }
@@ -204,16 +216,18 @@ function App(store) {
 
         },
 
-        auth(){
+        auth() {
 
-            const requestData = {student_id: this.model.student_id, hh_code: this.model.hh_code}
+            const requestData = {
+                student_id: this.model.student_id, hh_code: this.model.hh_code
+            }
 
             console.log(requestData)
 
             axios.post(AUTHURL, requestData)
 
                 .then(response => {
-                    console.log("Выполнена загрузка"+ JSON.stringify(response))
+                    console.log("Выполнена загрузка" + JSON.stringify(response))
                     this.model.hh_access_token = response.data.access_token;
 
 
