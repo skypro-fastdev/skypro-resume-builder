@@ -1,13 +1,19 @@
+GATEBASEURL =  localStorage.getItem("ISDEV") ? "https://hhgate-dev.onrender.com" : "https://hhgate.onrender.com";
+
 BASICURL = "https://fastapi-cors-proxy.onrender.com/api/exec?v=BASICINFO"
 CHECKURL = "https://fastapi-cors-proxy.onrender.com/api/exec?v=CHECK_RESUME_BY_PROFESSION"
 LEGENDURL = "https://fastapi-cors-proxy.onrender.com/api/exec?v=EXPERIENCE_LEGEND"
 COVERURL = "https://fastapi-cors-proxy.onrender.com/api/exec?v=COVER"
 PREVIOUSJOBURL = "https://fastapi-cors-proxy.onrender.com/api/exec?v=EXPERIENCE_REAL"
 UPDATEURL = "https://fastapi-cors-proxy.onrender.com/api/exec?v=UPDATE"
-AUTHURL = "https://hhgate.onrender.com/auth/"
-UPLOADBASEURL = "https://hhgate.onrender.com/photo/"
-PUBLISHURL = "https://hhgate.onrender.com/resume/"
 
+AUTHURL = GATEBASEURL + "/auth/"
+UPLOADBASEURL = GATEBASEURL + "/photo/"
+PUBLISHURL = GATEBASEURL + "/resume/"
+
+HHCLIENTID = "S754EPR26AICHFF4GM9QG952T281ALITK235VT2R2CF3KU4O0BMH2UKKJF16Q7GS"
+
+console.log(`Base url is ${GATEBASEURL}`)
 
 function App(store) {
 
@@ -91,7 +97,7 @@ function App(store) {
 
             // Сгенерированное резюме
 
-            hh_client_id: "S754EPR26AICHFF4GM9QG952T281ALITK235VT2R2CF3KU4O0BMH2UKKJF16Q7GS",
+            hh_client_id: HHCLIENTID,
             hh_access_token: "",    // код, который отдает OAUTH чтобы по нему получить токен
             hh_resume_published_id: "",   //
 
