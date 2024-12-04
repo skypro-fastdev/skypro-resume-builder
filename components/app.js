@@ -1,12 +1,17 @@
+GATEBASEURL =  localStorage.getItem("ISDEV") ? "https://hhgate-dev.onrender.com" : "https://hhgate.onrender.com";
+
 BASICURL = "https://fastapi-cors-proxy.onrender.com/api/exec?v=BASICINFO"
 CHECKURL = "https://fastapi-cors-proxy.onrender.com/api/exec?v=CHECK_RESUME_BY_PROFESSION"
 LEGENDURL = "https://fastapi-cors-proxy.onrender.com/api/exec?v=EXPERIENCE_LEGEND"
 COVERURL = "https://fastapi-cors-proxy.onrender.com/api/exec?v=COVER"
 PREVIOUSJOBURL = "https://fastapi-cors-proxy.onrender.com/api/exec?v=EXPERIENCE_REAL"
 UPDATEURL = "https://fastapi-cors-proxy.onrender.com/api/exec?v=UPDATE"
-AUTHURL = "https://hhgate.onrender.com/auth/"
-UPLOADBASEURL = "https://hhgate.onrender.com/photo/"
-PUBLISHURL = "https://hhgate.onrender.com/resume/"
+
+AUTHURL = GATEBASEURL + "/auth/"
+UPLOADBASEURL = GATEBASEURL + "/photo/"
+PUBLISHURL = GATEBASEURL + "/resume/"
+
+console.log(`Base url is ${GATEBASEURL}`)
 
 
 function App(store) {
