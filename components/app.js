@@ -11,8 +11,9 @@ AUTHURL = GATEBASEURL + "/auth/"
 UPLOADBASEURL = GATEBASEURL + "/photo/"
 PUBLISHURL = GATEBASEURL + "/resume/"
 
-console.log(`Base url is ${GATEBASEURL}`)
+HHCLIENTID = "S754EPR26AICHFF4GM9QG952T281ALITK235VT2R2CF3KU4O0BMH2UKKJF16Q7GS"
 
+console.log(`Base url is ${GATEBASEURL}`)
 
 function App(store) {
 
@@ -96,7 +97,7 @@ function App(store) {
 
             // Сгенерированное резюме
 
-            hh_client_id: "S754EPR26AICHFF4GM9QG952T281ALITK235VT2R2CF3KU4O0BMH2UKKJF16Q7GS",
+            hh_client_id: HHCLIENTID,
             hh_access_token: "",    // код, который отдает OAUTH чтобы по нему получить токен
             hh_resume_published_id: "",   //
 
