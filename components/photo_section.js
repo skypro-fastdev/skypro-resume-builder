@@ -54,7 +54,11 @@ function PhotoSection(store){
 
                 })
                 .catch(error => {
-                    console.error(error); // Handle upload errors
+                    const responseData = error.response
+                    console.log(`Ошибка при публикации ${error}`)
+                    console.log(responseData)
+                    store.setStatus("photo", "ready")
+                    alert(`Произошла ошибка при публикации: ${JSON.stringify(responseData)}`)
             });
 
         }

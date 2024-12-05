@@ -57,9 +57,8 @@ function PublishSection(store) {
                 const responseData = error.response
                 console.log(`Ошибка при публикации ${error}`)
                 console.log(responseData)
-                console.log(responseData.data.detail.errors)
                 store.setStatus("publish", "ready")
-                alert(`Произошла ошибка при публикации: ${JSON.stringify(responseData.data.detail.errors)}`)
+                alert(`Произошла ошибка при публикации: ${JSON.stringify(responseData)}`)
 
             })
         },
