@@ -3,8 +3,13 @@ function PreviousJobSection(store) {
     return {
 
         $template: `
-        
+
             <h3>Прошлое место работы</h3>
+            
+            <div v-if="dataIsIncorrect()" class="alert alert-danger">
+              Дата начала новой работы – раньше, чем закончилась прошлая. Возможно, это стоит поправить?
+            </div>
+            
             <div class="row">
               <div class="col-md-6 col-xs-12 pt-3">
                 <small class="text-muted">Работодатель</small>
@@ -85,7 +90,11 @@ function PreviousJobSection(store) {
 
                 })
 
-        }
+        },
+
+        dataIsIncorrect(){
+            return this.model.recent_job_from < this.model.previous_job_to && this.model.legend_on
+        },
 
     }
 
