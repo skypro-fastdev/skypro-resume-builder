@@ -96,7 +96,7 @@ function  LegendSection(store) {
 
             }
 
-
+            this.updateTime()
 
         },
 
@@ -112,9 +112,6 @@ function  LegendSection(store) {
 
             const previousDateTo = parseDate(this.model.previous_job_to)
 
-            if (dateFrom < previousDateTo && this.model.legend_on ) {
-                alert("Мы сгенерировали дата начала новой работы – они раньше, чем закончилась прошлая. Возможно, это стоит поправить :)")
-            }
 
         },
 
