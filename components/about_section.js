@@ -33,9 +33,9 @@ function AboutSection(store) {
                 store.setStatus("about", "ready")
             })
             .catch(error => {
-                console.log("Произошла ошибка")
-                this.model.error = 'Error fetching data';
-                store.setStatus("about", "error")
+                console.log("Произошла ошибка" + JSON.stringify(error))
+                this.model.about = "Не получилось сгенерировать, попробуйте еще раз, если все еще не работает – напишите в поддержку!";
+                store.setStatus("about", "ready")
             })
         },
 
