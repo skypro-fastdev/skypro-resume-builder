@@ -12,13 +12,11 @@ function  LegendSection(store) {
               <label class="form-check-label" for="legendSwitch">🔥 Добавить легенду</label>
             </div>
             
-            
             </header>
             
             <div class="alert alert-info text-muted mt-3">
             Для работы нужен опыт, а для опыта работа? Не беда, мы создадим вам убедительную легенду!
             </div>
-            
 
               <div  v-if="model.legend_on">
               
@@ -26,12 +24,10 @@ function  LegendSection(store) {
               
                  <p>Наш первый приоритет — помочь вам раскрыть ваш существующий опыт так, чтобы в новой профессии он стал вашей опорой. Но если вы чувствуете, что ваш опыт совсем далек от сферы IT — воспользуйтесь этой опцией.</p>
             
-              
                 <details class="mt-2">
                 <summary>Тонкая настройка</summary>
                 <textarea v-model="model.legend_prompt"  cols="30" rows="4" class="form-control"></textarea>
                 </details>               
-                
                 
               </div>  
               
@@ -100,9 +96,11 @@ function  LegendSection(store) {
 
             }
 
-            this.updateTime()
+
 
         },
+
+
 
         updateTime() {
 
@@ -113,16 +111,10 @@ function  LegendSection(store) {
             this.model.recent_job_to = formatDate(dateTo)
 
             const previousDateTo = parseDate(this.model.previous_job_to)
-            const previousDateFrom = parseDate(this.model.previous_job_to)
-
-            console.log(dateFrom)
-            console.log(previousDateTo)
 
             if (dateFrom < previousDateTo && this.model.legend_on ) {
-
                 alert("Мы сгенерировали дата начала новой работы – они раньше, чем закончилась прошлая. Возможно, это стоит поправить :)")
             }
-
 
         },
 
