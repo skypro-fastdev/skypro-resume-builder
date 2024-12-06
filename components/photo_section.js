@@ -6,7 +6,7 @@ function PhotoSection(store) {
         
             <h3>Фото</h3>
             
-<!--            <div v-if="model.hh_access_token">-->
+            <div v-if="model.hh_access_token">
                 <div class="alert alert-info text-muted mt-3">
                   <small>На фото резюме должно быть хорошо видно лицо. Снимок должен быть сдержанным, при этом легким и непринужденным. </small>
                 </div>
@@ -14,7 +14,7 @@ function PhotoSection(store) {
                 <input type="file" ref="fileInput" class="form-control" >     
                 <button v-if="store.sections.photo=='ready'" @click="upload()" class="btn btn-dark mt-3" >📷 Загрузить</button>
                 <button v-if="store.sections.photo=='loading'"  class="btn btn-dark mt-2" disabled>Идет загрузка</button>
-<!--            </div>-->
+            </div>
             
             <div v-if="!model.hh_access_token">
                 <div class="alert alert-info text-muted mt-3">
