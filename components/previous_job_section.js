@@ -69,13 +69,19 @@ function PreviousJobSection(store) {
 
                 .then(response => {
                     console.log("Выполнена загрузка" + JSON.stringify(response))
-                    this.model.previous_job_experience = response.data.response;
+                    if (response.data.response) {
+                        this.model.previous_job_experience = response.data.response;
+                    } else {
+                        this.model.previous_job_experience = "Не получилось сгенерировать, если все еще не работает – напишите в поддержку!";
+                    }
+
                     store.setStatus("previous_job", "ready")
 
                 })
                 .catch(error => {
                     console.log("Произошла ошибка")
-                    this.error = 'Error fetching data';
+                    this.model.previous_job_experience = "Не получилось сгенерировать, попробуйте еще раз, если все еще не работает – напишите в поддержку!";
+                    store.setStatus("previous_job", "ready")
 
                 })
 

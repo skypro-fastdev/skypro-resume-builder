@@ -41,7 +41,6 @@ function  LegendSection(store) {
                     <option value="ITDEPARTMENT">Работа в IT отделе работодателя</option>
                     <option value="INTERNSHIP">Стажировка по новой специальности</option>
                     <option value="FREELANCE">Фриланс проекты</option>
-                    <option value="NO">Без легенды</option>
                 </select></div>
                 
                 <p>
@@ -153,9 +152,9 @@ function  LegendSection(store) {
 
                 })
                 .catch(error => {
-                    console.log("Произошла ошибка")
-                    this.error = 'Error fetching data';
-
+                    console.log("Произошла ошибка" + JSON.stringify(error))
+                    this.model.recent_job_experience = "Не получилось сгенерировать, попробуйте еще раз, если все еще не работает – напишите в поддержку!";
+                    store.setStatus("legend", "ready")
                 })
 
         }
