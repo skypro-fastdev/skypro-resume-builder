@@ -235,8 +235,7 @@ function App(store) {
                 .then(response => {
                     console.log("Выполнена загрузка" + JSON.stringify(response))
                     this.model.hh_access_token = response.data.access_token;
-
-
+                    this.reportAuthenticated()
                 })
                 .catch(error => {
                     console.log(`Произошла ошибка ${error} ${JSON.stringify(error.response)} `)
@@ -244,6 +243,20 @@ function App(store) {
                     this.model.hh_access_token = ""
                     this.model.hh_code = ""
                 })
+
+        },
+
+        reportAuthenticated(){
+
+            const requestData = {
+                student_id: this.model.student_id,
+                hh_access_token: this.model.hh_access_token,
+                status: "AUTHENTICATED",
+            }
+
+            axios.post(UPDATEURL, {requestData})
+                .then(response => { console.log("Обновлен статус" + JSON.stringify(response))})
+                .catch(error => { console.log(`Ошибка обновлении статуса ${error}`) })
 
         },
 
