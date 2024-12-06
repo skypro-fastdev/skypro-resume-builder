@@ -68,10 +68,13 @@ function PublishSection(store) {
             const requestData = {
                 student_id: this.model.student_id,
                 hh_resume_published_id: this.model.hh_resume_published_id,
+                hh_access_token: this.model.hh_access_token,
                 status: "PUBLISHED",
             }
 
             axios.post(UPDATEURL, {requestData})
+                .then(response => { console.log("Обновлен статус" + JSON.stringify(response))})
+                .catch(error => { console.log(`Ошибка обновлении статуса ${error}`) })
 
         },
 
