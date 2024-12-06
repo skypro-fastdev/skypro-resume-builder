@@ -118,7 +118,7 @@ function  LegendSection(store) {
             console.log(dateFrom)
             console.log(previousDateTo)
 
-            if (dateFrom < previousDateTo) {
+            if (dateFrom < previousDateTo && this.model.legend_on ) {
 
                 alert("Мы сгенерировали дата начала новой работы – они раньше, чем закончилась прошлая. Возможно, это стоит поправить :)")
             }
