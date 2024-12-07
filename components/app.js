@@ -1,4 +1,5 @@
-GATEBASEURL =  localStorage.getItem("ISDEV") ? "https://hhgate-dev.onrender.com" : "https://hhgate.onrender.com";
+const url = window.location.href;
+GATEBASEURL =  url.includes("dev") || url.includes("localhost")  ? "https://hhgate-dev.onrender.com" : "https://hhgate.onrender.com";
 
 BASICURL = "https://fastapi-cors-proxy.onrender.com/api/exec?v=BASICINFO"
 CHECKURL = "https://fastapi-cors-proxy.onrender.com/api/exec?v=CHECK_RESUME_BY_PROFESSION"
@@ -10,8 +11,8 @@ UPDATEURL = "https://fastapi-cors-proxy.onrender.com/api/exec?v=UPDATE"
 AUTHURL = GATEBASEURL + "/auth/"
 UPLOADBASEURL = GATEBASEURL + "/photo/"
 PUBLISHURL = GATEBASEURL + "/resume/"
+CLIENTIDURL = GATEBASEURL + "/client_id/"
 
-HHCLIENTID = "S754EPR26AICHFF4GM9QG952T281ALITK235VT2R2CF3KU4O0BMH2UKKJF16Q7GS"
 
 console.log(`Base url is ${GATEBASEURL}`)
 
@@ -97,7 +98,7 @@ function App(store) {
 
             // Сгенерированное резюме
 
-            hh_client_id: HHCLIENTID,
+            hh_client_id: "",
             hh_access_token: "",    // код, который отдает OAUTH чтобы по нему получить токен
             hh_resume_published_id: "",   //
 
@@ -203,6 +204,9 @@ function App(store) {
             this.model.student_id = this.getIdFromURL() ? this.getIdFromURL() : ""; // 13620001
             this.model.hh_code = this.getHHCodeFromURL() ? this.getHHCodeFromURL() : "";
 
+            // Загружаем айдишник для
+            this.getClientID()
+
             if (this.model.student_id) {
                 console.log("Указан ID ученика, загружаем данные с сервера")
                 this.load()
@@ -222,10 +226,25 @@ function App(store) {
 
         },
 
+        getClientID(){
+
+            axios.get(CLIENTIDURL)
+                .then(response => {
+                    this.model.hh_client_id = response.data.client_id;
+                    console.log(`Client ID загружен с сервера ${JSON.stringify(response.data)}`)
+
+                })
+                .catch(error => {
+                    alert("Не удалось получить Client Id для OAuth, обратитесь в поддержку")
+                })
+
+        },
+
         auth() {
 
             const requestData = {
-                student_id: this.model.student_id, hh_code: this.model.hh_code
+                student_id: this.model.student_id,
+                hh_code: this.model.hh_code
             }
 
             console.log(requestData)
