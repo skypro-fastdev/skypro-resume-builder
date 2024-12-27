@@ -13,7 +13,6 @@ function AboutSection(store) {
                 student_id: this.model.student_id,
 
                 previous_job_position: this.model.previous_job_position,
-                previous_job_position: this.model.previous_job_position,
                 previous_job_industry: this.model.previous_job_industry,
 
                 education_organisation: this.model.education_organisation,

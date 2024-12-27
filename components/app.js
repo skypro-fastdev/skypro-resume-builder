@@ -13,7 +13,6 @@ UPLOADBASEURL = GATEBASEURL + "/photo/"
 PUBLISHURL = GATEBASEURL + "/resume/"
 CLIENTIDURL = GATEBASEURL + "/client_id/"
 
-
 console.log(`Base url is ${GATEBASEURL}`)
 
 function App(store) {
@@ -21,6 +20,8 @@ function App(store) {
     return {
 
         model: {
+
+            page: "builder",
 
             // Персональные данные
 
@@ -91,9 +92,9 @@ function App(store) {
 
             // Поля для генерации ковра
 
-            resume_cover_vacancy_url: "https://hh.ru/vacancy/111420778",   // Вакансия, для которой пишем сопрводительное
-            student_motivation: "",     // Мотивация из таблички пользовтеля, используется для cover-letter
-            resume_cover_prompt: "",    // Уточнение прмпта от пользователя
+            resume_cover_vacancy_url: "https://hh.ru/vacancy/111420778",   // Вакансия, для которой пишем сопроводительное
+            student_motivation: "",     // Мотивация из таблички пользователя, используется для cover-letter
+            resume_cover_prompt: "",    // Уточнение промпта от пользователя
             resume_cover: "",           // Готовое сгенерированное сопроводительное письмо  cover-letter
 
             // Сгенерированное резюме
@@ -141,9 +142,7 @@ function App(store) {
                     return ["69"]
                 }
             },
-
         },
-
 
         getIdFromURL() {
             return new URLSearchParams(window.location.search).get('student_id')
@@ -156,7 +155,6 @@ function App(store) {
                 return code
             }
         },
-
 
         load() {
 
@@ -195,13 +193,11 @@ function App(store) {
                     store.setStatus("bio", "ready")
 
                 })
-
         },
-
 
         mounted() {
 
-            this.model.student_id = this.getIdFromURL() ? this.getIdFromURL() : ""; // 13620001
+            this.model.student_id = this.getIdFromURL() ? this.getIdFromURL() : "";
             this.model.hh_code = this.getHHCodeFromURL() ? this.getHHCodeFromURL() : "";
 
             // Загружаем айдишник для
@@ -280,10 +276,8 @@ function App(store) {
         },
 
         saveToLocalStorage() {
-
             localStorage.setItem("model", JSON.stringify(this.model));
             console.log("Данные сохранены в локальном хранилище")
-
         },
 
         loadFromLocalStorage() {
@@ -299,6 +293,11 @@ function App(store) {
                 }
             }
         },
+
+        openPage(pageName){
+            this.model.page = pageName;
+        },
+
 
     }
 
