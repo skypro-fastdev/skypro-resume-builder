@@ -255,6 +255,7 @@ function App(store) {
                 .then(response => {
                     console.log("Выполнена загрузка" + JSON.stringify(response))
                     this.model.hh_access_token = response.data.access_token;
+                    console.log(`Получен hh_access_token ${this.model.hh_access_token}`)
                     this.reportAuthenticated()
                 })
                 .catch(error => {
