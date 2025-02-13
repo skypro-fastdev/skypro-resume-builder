@@ -227,12 +227,15 @@ function App(store) {
 
             }
 
+            this.model.hh_code = this.getHHCodeFromURL() ? this.getHHCodeFromURL() : "";
+
             if (this.model.hh_code !== "" && this.model.hh_access_token === "") {
                 console.log("Есть HH код, но нет токена, пора запускать авторизацию")
                 this.auth()
             }
 
-            this.model.hh_code = this.getHHCodeFromURL() ? this.getHHCodeFromURL() : "";
+
+
             setInterval(this.saveToLocalStorage, 5000)
         },
 
