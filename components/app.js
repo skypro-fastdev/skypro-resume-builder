@@ -162,8 +162,17 @@ function App(store) {
 
             axios.post(BASICURL, {"student_id": this.model.student_id + ""})
                 .then(response => {
+
                     console.log("Выполнена загрузка" + JSON.stringify(response))
+
                     const data = response.data
+
+                    // Показываем страницу ошибки, если данные не загрузились
+                    if (!data.student_id) {
+                        store.setStatus("bio", "error")
+                        return
+                    }
+
                     this.model.student_full_name = data.name;
                     this.model.student_gender = data.student_gender;
                     this.model.student_location = data.location;
@@ -217,9 +226,7 @@ function App(store) {
                 this.auth()
             }
 
-
             setInterval(this.saveToLocalStorage, 5000)
-
         },
 
         getClientID(){
@@ -228,12 +235,10 @@ function App(store) {
                 .then(response => {
                     this.model.hh_client_id = response.data.client_id;
                     console.log(`Client ID загружен с сервера ${JSON.stringify(response.data)}`)
-
                 })
                 .catch(error => {
                     alert("Не удалось получить Client Id для OAuth, обратитесь в поддержку")
                 })
-
         },
 
         auth() {
@@ -297,7 +302,6 @@ function App(store) {
         openPage(pageName){
             this.model.page = pageName;
         },
-
 
     }
 

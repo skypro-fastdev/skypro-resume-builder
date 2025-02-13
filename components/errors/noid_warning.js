@@ -1,4 +1,4 @@
-function StudentWarning(store){
+function NoIDWarning(store){
 
     return {
 

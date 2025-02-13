@@ -13,14 +13,7 @@ function  BioSection(){
                 <small class="text-muted">Телефон</small>
                 <input type="text" class="form-control" v-model="model.student_phone" placeholder="Телефон">
               </div>
-              <div class="col-md-6 col-xs-12 pt-3">
-                <small class="text-muted">Telegram</small>
-                <input type="text" class="form-control" v-model="model.student_tg" placeholder="Телеграм">
-               </div>
-              <div class="col-md-6 col-xs-12 pt-3">
-                <small class="text-muted">ВКонтакте</small>             
-                <input type="text" class="form-control" v-model="model.student_vk" placeholder="ВКонтакте">
-              </div>
+
             </div>
         `
     }

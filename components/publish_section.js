@@ -16,21 +16,23 @@ function PublishSection(store) {
          <div v-if="model.hh_access_token && !model.hh_resume_published_id">
             <div class="alert alert-info text-muted mt-3">
                 <small>Связь c HeadHunter установлена. Проверьте резюме перед публикацией!</small>
-            </div>    
+            </div>  
+              
                 <button v-if="store.sections.publish=='ready'" class="btn btn-dark w-100 btn-lg" @click="publish()"> Опубликовать на HH</button>
                 <button v-if="store.sections.publish=='loading'" class="btn btn-dark w-100 btn-lg" disabled>Идет публикация</button>      
+                
+                <button class="btn btn-outline-dark  mt-2" @click="validate()">Проверить заполнение полей</button>
+                <button class="btn btn-outline-dark 0 mt-2" @click="reset_hh_codes()">Сбросить авторизацию</button>
+         
          </div>
          
          <div v-if="model.hh_resume_published_id">
             <div class="alert alert-info text-muted mt-2">
                 <small>Резюме опубликовано</small>
             </div>
-            <p><a :href="'https://hh.ru/resume/'+model.hh_resume_published_id.split('/').pop()" class="btn btn-primary w-100 btn-lg" target="_blank">Посмотреть резюме на hh.ru</a></p>
-         </div>     
-         
-         <div class="mt-3">
-             <button class="btn btn-outline-dark w-100 mt-2" @click="validate()">Проверить заполнение полей</button>
-             <button class="btn btn-outline-dark w-100 mt-2" @click="reset_hh_codes()">Сбросить авторизацию</button>
+            
+            <a :href="'https://hh.ru/resume/'+model.hh_resume_published_id.split('/').pop()" class="btn btn-primary w-100 btn-lg" target="_blank">Посмотреть резюме на hh.ru</a>
+
          </div>
         `,
 
@@ -104,6 +106,8 @@ function PublishSection(store) {
 
             let errors = []
 
+            if (this.model.about.length < 100) {errors.push("Слишком короткий текст 'О Себе' "); }
+
             if (!validateNotEmpty(this.model.education_faculty)) { errors.push("Проверьте поле Факультет в разделе Образование"); }
 
             if (!validateShortDate(this.model.education_from)) { errors.push("Проверьте даты в разделе Образование, укажите Год в формате 2024 "); }
@@ -114,6 +118,8 @@ function PublishSection(store) {
 
             if (!validateLongDate(this.model.previous_job_from)) { errors.push("Проверьте даты в разделе Прошлая работа, укажите дату начала работы в формате 2024-10-01"); }
             if (!validateLongDate(this.model.previous_job_to)) { errors.push("Проверьте даты в разделе  Прошлая работа, укажите дату завершения работы в формате 2024-10-01"); }
+
+
 
             if (errors.length === 0) {
                 alert("Нет ошибок, можно отправлять")

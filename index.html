@@ -12,13 +12,14 @@
 
   <!-- Загружаем странички -->
   <script src="/pages/builder_page.js" type="text/javascript"></script>
-  <script src="/pages/sender_page.js" type="text/javascript"></script>
 
   <!-- Загружаем компоненты -->
   <script src="components/app.js" type="text/javascript"></script>
 
-  <script src="components/errors/student_warning.js" type="text/javascript"></script>
+  <script src="/components/errors/nodata_warning.js" type="text/javascript"></script>
+  <script src="components/errors/noid_warning.js" type="text/javascript"></script>
 
+  <script src="components/sections/status_section.js" type="text/javascript"></script>
   <script src="components/sections/bio_section.js" type="text/javascript"></script>
   <script src="components/sections/skills_section.js" type="text/javascript"></script>
   <script src="components/sections/legend_section.js" type="text/javascript"></script>
@@ -48,14 +49,15 @@
 
 <div class="container mt-4" id="app" v-scope="App(store)" @vue:mounted="mounted()">
 
-  <div v-scope="VideoSection(store)"></div>
-
   <div class="card" v-if="!model.student_id">
-    <section class="list-group-item p-4" v-scope="StudentWarning(store)"></section>
+    <section class="list-group-item p-4" v-scope="NoIDWarning(store)"></section>
   </div>
 
-  <div v-scope="BuilderPage(store)" v-if="model.page=='builder'"> </div><!-- /.resume-page -->
-  <div v-scope="SenderPage(store)" v-if="model.page=='sender'"> </div><!-- /.sender-page -->
+  <div class="card" v-if="store.sections.bio=='error'">
+    <section class="list-group-item p-4" v-scope="NoDataWarning(store)"></section>
+  </div>
+
+  <div v-scope="BuilderPage(store)" > </div><!-- /.resume-page -->
 
 </div>
 
@@ -66,7 +68,7 @@
   const state = {
 
     sections: {
-      bio: "ready",
+      bio: "loading",
       about: "ready",
       check: "ready",
       cover: "ready",
