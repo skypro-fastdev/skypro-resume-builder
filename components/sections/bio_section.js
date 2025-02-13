@@ -9,10 +9,25 @@ function  BioSection(){
                 <input type="text" class="form-control" v-model="model.profession_pretty">
             </div>
             
-            <div class="mt-3">
+            
+             <div class="row">
+              <div class="col-md-8 col-xs-12 pt-3">
+                  
                 <small class="text-muted">Город, который вы указываете в качестве домашнего</small>
                 <input type="text" class="form-control" v-model="model.student_location">
+            
+               </div>
+              <div class="col-md-4 col-xs-12 pt-3">
+                <small class="text-muted">Гендер</small>
+                 <select v-model="model.student_gender" class="form-control">
+                    <option value="male">Мужской</option>
+                    <option value="female">Женский</option>
+                </select>
+              </div>
             </div>
+            
+            
+           
             
             <div class="row">
               <div class="col-md-6 col-xs-12 pt-3">
