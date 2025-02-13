@@ -4,6 +4,10 @@ function StatusSection(store) {
 
         $template: `
 
+          <div class="alert alert-danger my-3" v-for="error in model.errors "> 
+            {{error}}
+         </div>
+
           <div class="card" v-if="!model.student_id">
             <section class="list-group-item p-4" v-scope="NoIDWarning(store)"></section>
           </div>

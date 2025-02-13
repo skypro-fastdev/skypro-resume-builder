@@ -44,7 +44,7 @@ function PublishSection(store) {
                 console.log("Отправляем"+ JSON.stringify(response))
                 this.model.hh_resume_published_id = response.data.hh_id;
                 store.setStatus("publish", "ready")
-
+                this.model.errors = []
                 this.reportPublished()  // Сообщаем серверу, что опубликовались
 
             })
@@ -53,8 +53,13 @@ function PublishSection(store) {
                 const responseData = error.response
                 console.log(`Ошибка при публикации ${error}`)
                 console.log(responseData)
+
                 store.setStatus("publish", "ready")
-                alert(`Произошла ошибка при публикации: ${JSON.stringify(responseData)}`)
+
+                this.model.errors = responseData.data.error
+                window.scroll({top: 0, behavior: "smooth"});
+
+                // alert(`Произошла ошибка при публикации: ${JSON.stringify(responseData)}`)
 
             })
         },

@@ -22,6 +22,7 @@ function App(store) {
         model: {
 
             page: "builder",
+            errors: [],
 
             // Персональные данные
 
@@ -174,7 +175,13 @@ function App(store) {
                     }
 
                     this.model.student_full_name = data.name;
-                    this.model.student_gender = data.student_gender;
+
+                    if (!["male", "female"].includes(data.student_gender)) {
+                        this.model.student_gender = "male";
+                    } else {
+                        this.model.student_gender = data.student_gender;
+                    }
+
                     this.model.student_location = data.location;
 
                     this.model.student_tg = data.student_tg;
@@ -284,6 +291,10 @@ function App(store) {
         },
 
         saveToLocalStorage() {
+            if (store.section.bio != 'ready'){
+                console.log("Мы в процессе загрузки, автосохранение пропускаем")
+                return
+            }
             localStorage.setItem("model", JSON.stringify(this.model));
             console.log("Данные сохранены в локальном хранилище")
         },
@@ -312,7 +323,7 @@ function App(store) {
             console.log("Данные загружены из локального хранилища")
 
             store.setStatus("bio", "ready")
-            
+
         },
 
         openPage(pageName){

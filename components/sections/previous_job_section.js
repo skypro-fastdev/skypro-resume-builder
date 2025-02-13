@@ -6,8 +6,8 @@ function PreviousJobSection(store) {
 
             <h3>Прошлое место работы</h3>
             
-            <div v-if="!model.previous_job_organisation || model.previous_job_position || model.previous_job_industry" class="alert alert-warning">Работа, должность или индустрия не заполнены. Без них – нельзя!</div>
-            <div v-if="!model.previous_job_from || model.previous_job_to" class="alert alert-warning">Даты не заполнены. Без них – нельзя!</div>
+            <div v-if="!model.previous_job_organisation || !model.previous_job_position || !model.previous_job_industry" class="alert alert-warning">Работа, должность или индустрия не заполнены. Без них – нельзя!</div>
+            <div v-if="!model.previous_job_from || !model.previous_job_to" class="alert alert-warning">Даты не заполнены. Без них – нельзя!</div>
 
             
             <div v-if="dataIsIncorrect()" class="alert alert-danger">
