@@ -13,7 +13,6 @@ function AboutSection(store) {
                 student_id: this.model.student_id,
 
                 previous_job_position: this.model.previous_job_position,
-                previous_job_position: this.model.previous_job_position,
                 previous_job_industry: this.model.previous_job_industry,
 
                 education_organisation: this.model.education_organisation,
@@ -43,6 +42,9 @@ function AboutSection(store) {
         $template: `
         
             <h3>О себе</h3>
+            
+            <div v-if="model.about.length < 10" class="alert alert-warning">Поле не заполнено. Без него – нельзя</div>
+            <!-- /.alert alert-warning -->
 
             <div class="alert alert-info text-muted mt-3">
               <small>ИИ опишет обязанности и приукрасит достижения так, как это нравится эйчару и работодателю.  Вы сможете отредактировать их или уточнть задачу для ИИ</small>

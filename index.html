@@ -7,23 +7,36 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
   <title>Генератор для резюме</title>
-<!--  <script src="/assets/petite-vue.js" type="text/javascript" defer init ></script>-->
   <script src="/assets/axios.min.js" type="text/javascript"></script>
   <script src="/assets/showdown.min.js" type="text/javascript"></script>
 
+  <!-- Загружаем странички -->
+  <script src="/pages/builder_page.js" type="text/javascript"></script>
+
   <!-- Загружаем компоненты -->
   <script src="components/app.js" type="text/javascript"></script>
-  <script src="components/bio_section.js" type="text/javascript"></script>
-  <script src="components/skills_section.js" type="text/javascript"></script>
-  <script src="components/legend_section.js" type="text/javascript"></script>
-  <script src="components/previous_job_section.js" type="text/javascript"></script>
-  <script src="components/education_section.js" type="text/javascript"></script>
-  <script src="components/about_section.js" type="text/javascript"></script>
-  <script src="components/photo_section.js" type="text/javascript"></script>
+
+  <script src="/components/errors/nodata_warning.js" type="text/javascript"></script>
+  <script src="components/errors/noid_warning.js" type="text/javascript"></script>
+
+  <script src="components/sections/status_section.js" type="text/javascript"></script>
+  <script src="components/sections/bio_section.js" type="text/javascript"></script>
+  <script src="components/sections/skills_section.js" type="text/javascript"></script>
+  <script src="components/sections/legend_section.js" type="text/javascript"></script>
+  <script src="components/sections/previous_job_section.js" type="text/javascript"></script>
+  <script src="components/sections/education_section.js" type="text/javascript"></script>
+  <script src="components/sections/about_section.js" type="text/javascript"></script>
+  <script src="components/sections/photo_section.js" type="text/javascript"></script>
   <script src="components/checklist_section.js" type="text/javascript"></script>
-  <script src="components/cover_section.js" type="text/javascript"></script>
+  <script src="components/sections/cover_section.js" type="text/javascript"></script>
   <script src="components/publish_section.js" type="text/javascript"></script>
-  <script src="components/preview_section.js" type="text/javascript"></script>
+  <script src="components/sections/preview_section.js" type="text/javascript"></script>
+  <script src="components/sections/video_section.js" type="text/javascript"></script>
+
+  <!--  Steps -->
+  <script src="components/steps/pick_resume_step.js" type="text/javascript"></script>
+  <script src="components/steps/pick_vacancy_step.js" type="text/javascript"></script>
+  <script src="components/steps/cover_step.js" type="text/javascript"></script>
 
   <script src="assets/utils.js" type="text/javascript"></script>
 
@@ -31,101 +44,23 @@
   <link rel="stylesheet" href="/assets/bootstrap.min.css" type="text/css">
   <link rel="stylesheet" href="assets/style.css" type="text/css">
 
-  <!-- Yandex.Metrika counter -->
-  <script type="text/javascript" >
-    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-      m[i].l=1*new Date();
-      for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
-      k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
-
-    ym(99050140, "init", {
-      clickmap:true,
-      trackLinks:true,
-      accurateTrackBounce:true,
-      webvisor:true
-    });
-  </script>
-  <noscript><div><img src="https://mc.yandex.ru/watch/99050140" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-  <!-- /Yandex.Metrika counter -->
-
 </head>
 <body>
 
 <div class="container mt-4" id="app" v-scope="App(store)" @vue:mounted="mounted()">
 
-  <div class="alert alert-info">
-    Видеоинструкции:
-    1. <a href="https://drive.google.com/file/d/15Gk53Z26IIApqMHisuy1NF5e3wVBMvlh/view?usp=drive_link" target="_blank" class="link-dark">Как создавать резюме</a>
-    2. <a href="https://drive.google.com/file/d/13AM1ZXXQ56VeF4b-7uhBQbZ3iy5vnGqL/view?usp=drive_link" target="_blank" class="link-dark">Как публиковать резюме<a>.
-    Поделитесь с нами впечатлениями: <a href="https://docs.google.com/forms/d/e/1FAIpQLSfKJVifTtyzZfMHfmpxwKOhfv2jK9OJR0bYCwQpc64kd5oibg/viewform" target="_blank" class="link-dark">Заполнить анкету</a>
-  </div>
-
-  <div class="row">
-    <main class="col-lg-8 col-xs-12 mb-5">
-
-      <div class="card" v-if="model.student_id">
-
-        <!-- Заголовок с пояснением и прелоадером -->
-        <div class="card-header" >
-          <small v-if="store.sections.bio=='ready'">  Информация загружена из вашей анкеты для карьерного центра, но вы можете отредактировать ее так, как вам нравится.</small>
-          <div v-if="store.sections.bio=='loading'" class="progress" role="progressbar" aria-label="Animated striped example" style="height: 25px" ><div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 100%"></div></div>
-        </div>
-
-
-        <div class="list-group list-group-flush">
-
-          <section class="list-group-item p-4" v-scope="BioSection(store)"></section>
-
-          <section class="list-group-item p-4 pb-1" v-scope="SkillsSection(store)"></section>
-
-          <section class="list-group-item  p-4 clearfix" v-scope="LegendSection(store)"></section>
-
-          <section class="list-group-item p-4 pb-1" v-scope="PreviousJobSection(store)"></section>
-
-          <section class="list-group-item p-4 pb-4" v-scope="EducationSection(store)"> </section>
-
-          <section class="list-group-item p-4 pb-4" v-scope="AboutSection(store, app)"></section>
-
-          <section class="list-group-item p-4 pb-4" v-scope="PhotoSection(store)"></section>
-
-          <section class="list-group-item " v-scope="PreviewSection(store)" @vue:mounted="mounted()"></section>
-
-        </div>
-      </div>
-    </main>
-
-    <aside class="col-lg-4 col-xs-12">
-
-      <div class="card" >
-
-        <div class="list-group list-group-flush p-2">
-
-          <section class="list-group-item" v-scope="ChecklistSection(store)"></section>
-
-          <section class="list-group-item" v-scope="CoverSection(store)"></section>
-
-          <section class="list-group-item" v-scope="PublishSection(store)" @vue:mounted="mounted()"></section>
-
-        </div>
-
-      </div>
-
-    </aside>
-  </div> <!-- /row -->
-
-
+  <div v-scope="BuilderPage(store)" > </div><!-- /.resume-page -->
 
 </div>
-
 
 <script type="module">
 
   import { createApp, reactive } from '/assets/petite-vue.js'
 
   const state = {
+
     sections: {
-      bio: "ready",
+      bio: "loading",
       about: "ready",
       check: "ready",
       cover: "ready",
@@ -151,4 +86,3 @@
 
 </body>
 </html>
-

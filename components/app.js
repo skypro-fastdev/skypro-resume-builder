@@ -13,7 +13,6 @@ UPLOADBASEURL = GATEBASEURL + "/photo/"
 PUBLISHURL = GATEBASEURL + "/resume/"
 CLIENTIDURL = GATEBASEURL + "/client_id/"
 
-
 console.log(`Base url is ${GATEBASEURL}`)
 
 function App(store) {
@@ -21,6 +20,9 @@ function App(store) {
     return {
 
         model: {
+
+            page: "builder",
+            errors: [],
 
             // Персональные данные
 
@@ -91,9 +93,9 @@ function App(store) {
 
             // Поля для генерации ковра
 
-            resume_cover_vacancy_url: "https://hh.ru/vacancy/111420778",   // Вакансия, для которой пишем сопрводительное
-            student_motivation: "",     // Мотивация из таблички пользовтеля, используется для cover-letter
-            resume_cover_prompt: "",    // Уточнение прмпта от пользователя
+            resume_cover_vacancy_url: "https://hh.ru/vacancy/111420778",   // Вакансия, для которой пишем сопроводительное
+            student_motivation: "",     // Мотивация из таблички пользователя, используется для cover-letter
+            resume_cover_prompt: "",    // Уточнение промпта от пользователя
             resume_cover: "",           // Готовое сгенерированное сопроводительное письмо  cover-letter
 
             // Сгенерированное резюме
@@ -141,9 +143,7 @@ function App(store) {
                     return ["69"]
                 }
             },
-
         },
-
 
         getIdFromURL() {
             return new URLSearchParams(window.location.search).get('student_id')
@@ -157,17 +157,31 @@ function App(store) {
             }
         },
 
-
         load() {
 
             store.setStatus("bio", "loading")
 
             axios.post(BASICURL, {"student_id": this.model.student_id + ""})
                 .then(response => {
+
                     console.log("Выполнена загрузка" + JSON.stringify(response))
+
                     const data = response.data
+
+                    // Показываем страницу ошибки, если данные не загрузились
+                    if (!data.student_id) {
+                        store.setStatus("bio", "error")
+                        return
+                    }
+
                     this.model.student_full_name = data.name;
-                    this.model.student_gender = data.student_gender;
+
+                    if (!["male", "female"].includes(data.student_gender)) {
+                        this.model.student_gender = "male";
+                    } else {
+                        this.model.student_gender = data.student_gender;
+                    }
+
                     this.model.student_location = data.location;
 
                     this.model.student_tg = data.student_tg;
@@ -195,25 +209,24 @@ function App(store) {
                     store.setStatus("bio", "ready")
 
                 })
-
         },
-
 
         mounted() {
 
-            this.model.student_id = this.getIdFromURL() ? this.getIdFromURL() : ""; // 13620001
-            this.model.hh_code = this.getHHCodeFromURL() ? this.getHHCodeFromURL() : "";
+
 
             // Загружаем айдишник для
             this.getClientID()
 
-            if (this.model.student_id) {
-                console.log("Указан ID ученика, загружаем данные с сервера")
+            if (this.getIdFromURL()) {
+                console.log("Указан в URL ID ученика, загружаем данные с сервера")
+                this.model.student_id = this.getIdFromURL()
                 this.load()
 
             } else {
                 console.log("Не указан ID ученика, ищем данные локально")
                 this.loadFromLocalStorage()
+
             }
 
             if (this.model.hh_code !== "" && this.model.hh_access_token === "") {
@@ -221,9 +234,8 @@ function App(store) {
                 this.auth()
             }
 
-
+            this.model.hh_code = this.getHHCodeFromURL() ? this.getHHCodeFromURL() : "";
             setInterval(this.saveToLocalStorage, 5000)
-
         },
 
         getClientID(){
@@ -232,12 +244,10 @@ function App(store) {
                 .then(response => {
                     this.model.hh_client_id = response.data.client_id;
                     console.log(`Client ID загружен с сервера ${JSON.stringify(response.data)}`)
-
                 })
                 .catch(error => {
                     alert("Не удалось получить Client Id для OAuth, обратитесь в поддержку")
                 })
-
         },
 
         auth() {
@@ -254,6 +264,7 @@ function App(store) {
                 .then(response => {
                     console.log("Выполнена загрузка" + JSON.stringify(response))
                     this.model.hh_access_token = response.data.access_token;
+                    console.log(`Получен hh_access_token ${this.model.hh_access_token}`)
                     this.reportAuthenticated()
                 })
                 .catch(error => {
@@ -280,13 +291,17 @@ function App(store) {
         },
 
         saveToLocalStorage() {
-
+            if (store.section.bio != 'ready'){
+                console.log("Мы в процессе загрузки, автосохранение пропускаем")
+                return
+            }
             localStorage.setItem("model", JSON.stringify(this.model));
             console.log("Данные сохранены в локальном хранилище")
-
         },
 
         loadFromLocalStorage() {
+
+            store.setStatus("bio", "loading")
 
             const storedModel = localStorage.getItem("model")
 
@@ -298,6 +313,21 @@ function App(store) {
                     }
                 }
             }
+
+            if (this.model.student_id) {
+                console.log(`В локальном хранилище указан student_id ${this.model.student_id}` )
+            } else {
+                console.log("В локальном хранилище не найден student_id")
+            }
+
+            console.log("Данные загружены из локального хранилища")
+
+            store.setStatus("bio", "ready")
+
+        },
+
+        openPage(pageName){
+            this.model.page = pageName;
         },
 
     }

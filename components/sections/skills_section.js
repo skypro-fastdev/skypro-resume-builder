@@ -5,19 +5,15 @@ function SkillsSection(){
         
         <h3>Навыки</h3>
           <p>
-          
             <span v-for="skill in model.skill_set" style="margin-right: 16px" >{{ skill }} 
                 <span class="skills__remove-icon" @click="removeSkill(skill)" >✖</span>
             </span> 
-            
             
             <div class="input-group mb-3">
                 <input type="text" class="form-control " ref="new" placeholder="Новый навык"> 
                 <button @click="addSkill()" class="btn  btn-outline-dark" > Добавить </button>             
             </div>
-            
           </p>
-           
         `,
 
         addSkill(){
@@ -37,8 +33,5 @@ function SkillsSection(){
             this.model.skill_set = this.model.skill_set.filter(e => e !== skill)
 
         }
-
-
     }
-
 }
