@@ -13,7 +13,6 @@ function BuilderPage(store) {
             
                 <section v-if="store.sections.bio == 'ready'"> 
                     <div class="p-4" v-scope="BioSection(store)"></div>
-                    <div class="p-4" v-scope="PublishSection(store)" @vue:mounted="mounted()"></div>
                  </section>  
                  
                  <div v-if="model.hh_access_token"> 
@@ -25,6 +24,8 @@ function BuilderPage(store) {
                     <section class="list-group-item p-4 pb-4" v-scope="PhotoSection(store)"></section>
                     <section class="list-group-item" v-scope="PreviewSection(store)" @vue:mounted="mounted()"></section>
                 </div>
+                
+                <div class="p-4" v-scope="PublishSection(store)" @vue:mounted="mounted()"></div>
                 
             </div><!-- /list-group -->            
           </div><!-- /card -->
