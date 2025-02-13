@@ -42,6 +42,9 @@ function AboutSection(store) {
         $template: `
         
             <h3>О себе</h3>
+            
+            <div v-if="model.about.length < 10" class="alert alert-warning">Поле не заполнено. Без него – нельзя</div>
+            <!-- /.alert alert-warning -->
 
             <div class="alert alert-info text-muted mt-3">
               <small>ИИ опишет обязанности и приукрасит достижения так, как это нравится эйчару и работодателю.  Вы сможете отредактировать их или уточнть задачу для ИИ</small>

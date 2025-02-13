@@ -3,7 +3,7 @@ function BuilderPage(store) {
     return {
       $template: `
 
-      <div class="row" v-if="model.student_id">
+      <div class="row" >
  
         <main class="col-lg-8 offset-lg-2 col-xs-12 mb-5">
           <div class="card" > 

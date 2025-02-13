@@ -49,14 +49,6 @@
 
 <div class="container mt-4" id="app" v-scope="App(store)" @vue:mounted="mounted()">
 
-  <div class="card" v-if="!model.student_id">
-    <section class="list-group-item p-4" v-scope="NoIDWarning(store)"></section>
-  </div>
-
-  <div class="card" v-if="store.sections.bio=='error'">
-    <section class="list-group-item p-4" v-scope="NoDataWarning(store)"></section>
-  </div>
-
   <div v-scope="BuilderPage(store)" > </div><!-- /.resume-page -->
 
 </div>

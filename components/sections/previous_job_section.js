@@ -6,8 +6,12 @@ function PreviousJobSection(store) {
 
             <h3>Прошлое место работы</h3>
             
+            <div v-if="!model.previous_job_organisation || model.previous_job_position || model.previous_job_industry" class="alert alert-warning">Работа, должность или индустрия не заполнены. Без них – нельзя!</div>
+            <div v-if="!model.previous_job_from || model.previous_job_to" class="alert alert-warning">Даты не заполнены. Без них – нельзя!</div>
+
+            
             <div v-if="dataIsIncorrect()" class="alert alert-danger">
-              Дата начала новой работы – раньше, чем закончилась прошлая. Возможно, это стоит поправить?
+              Дата начала новой работы – раньше, чем закончилась прошлая. Так не пойдет :)
             </div>
             
             <div class="row">
@@ -32,7 +36,9 @@ function PreviousJobSection(store) {
                 <small class="text-muted">{{ ruDate(model.previous_job_to) }}</small>
               </div>
             </div>
-
+            
+            <div v-if="!model.previous_job_experience" class="alert alert-warning mt-2">Описание опыта работы не заполнено. Без него – нельзя!</div>
+            
             <div class="alert alert-info text-muted mt-3">
             
                 <small>ИИ опишет обязанности и приукрасит достижения так, как это нравится эйчару и работодателю.  Вы сможете отредактировать их или уточнть задачу для ИИ</small>

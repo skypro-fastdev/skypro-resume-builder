@@ -3,6 +3,14 @@ function StatusSection(store) {
     return {
 
         $template: `
+
+          <div class="card" v-if="!model.student_id">
+            <section class="list-group-item p-4" v-scope="NoIDWarning(store)"></section>
+          </div>
+        
+          <div class="card" v-if="store.sections.bio=='error'">
+            <section class="list-group-item p-4" v-scope="NoDataWarning(store)"></section>
+          </div>
               
           <div v-if="store.sections.bio == 'loading'">      
                 <div class="alert alert-info">
@@ -26,7 +34,7 @@ function StatusSection(store) {
            
            <div v-if="store.sections.bio !='loading' && model.hh_access_token==''"> 
             <div class="alert alert-info text-muted mt-3 clearfix">
-             <small>Предоставьте нам доступ к HH и мы сами опубликуем ваше резюме. </small>
+             <small>Предоставьте нам доступ к HH чтобы продолжить </small>
              <a class="float-end btn btn-primary" :href="'https://hh.ru/oauth/authorize?response_type=code&client_id='+model.hh_client_id" class="btn btn-dark">🔐 Предоставить доступ</a> 
             
             </div>

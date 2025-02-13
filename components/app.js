@@ -298,6 +298,15 @@ function App(store) {
                     }
                 }
             }
+
+            if (!this.model.student_id) {
+                console.log(`В локальном хранилище указан student_id ${this.model.student_id}` )
+            } else {
+                console.log("В локальном хранилище не найден student_id")
+                
+            }
+
+
         },
 
         openPage(pageName){

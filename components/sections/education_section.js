@@ -4,6 +4,8 @@ function  EducationSection() {
         $template: `
         
         <h3>Образование</h3>
+        
+        <div v-if="!model.education_organisation || !model.education_industry || !model.education_faculty || !model.education_from || !model.education_to" class="alert alert-warning">Не все поля заполнены. Без них – нельзя!</div>
 
         <div class="row">
             <div class="col-12 pt-3">
