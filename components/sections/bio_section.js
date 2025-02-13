@@ -27,8 +27,6 @@ function  BioSection(){
             </div>
             
             
-           
-            
             <div class="row">
               <div class="col-md-6 col-xs-12 pt-3">
                  <small class="text-muted">E-mail</small>

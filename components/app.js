@@ -213,8 +213,6 @@ function App(store) {
 
         mounted() {
 
-
-
             // Загружаем айдишник для
             this.getClientID()
 
@@ -291,10 +289,10 @@ function App(store) {
         },
 
         saveToLocalStorage() {
-            if (store.section.bio != 'ready'){
-                console.log("Мы в процессе загрузки, автосохранение пропускаем")
-                return
-            }
+            // if (store.section.bio != 'ready'){
+            //     console.log("Мы в процессе загрузки, автосохранение пропускаем")
+            //     return
+            // }
             localStorage.setItem("model", JSON.stringify(this.model));
             console.log("Данные сохранены в локальном хранилище")
         },
