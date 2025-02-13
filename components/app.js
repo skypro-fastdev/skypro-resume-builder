@@ -234,7 +234,7 @@ function App(store) {
                 this.auth()
             }
 
-
+            this.saveToLocalStorage()
 
             setInterval(this.saveToLocalStorage, 5000)
         },
