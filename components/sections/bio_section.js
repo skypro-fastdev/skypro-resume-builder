@@ -4,7 +4,6 @@ function  BioSection(){
         $template: `
             <h1>{{model.student_full_name}} <small class="text-light">#{{model.student_id}}</small></h1>
             
-            
             <div class="mt-3">
                 <small class="text-muted">Название будущего резюме</small>
                 <input type="text" class="form-control" v-model="model.profession_pretty">
@@ -24,7 +23,14 @@ function  BioSection(){
                 <small class="text-muted">Телефон</small>
                 <input type="text" class="form-control" v-model="model.student_phone" placeholder="Телефон">
               </div>
-
+            </div>
+            
+            
+            <div v-if="model.student_id && store.sections.bio !='loading' && model.hh_access_token==''"> 
+               <div class="alert alert-info mt-3 clearfix">
+                 Предоставьте нам доступ к HH чтобы продолжить
+                 <a class="float-end btn btn-primary" :href="'https://hh.ru/oauth/authorize?response_type=code&client_id='+model.hh_client_id" class="btn btn-dark">🔐 Предоставить доступ</a> 
+               </div>
             </div>
         `
     }

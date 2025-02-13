@@ -206,19 +206,20 @@ function App(store) {
 
         mounted() {
 
-            this.model.student_id = this.getIdFromURL() ? this.getIdFromURL() : "";
-            this.model.hh_code = this.getHHCodeFromURL() ? this.getHHCodeFromURL() : "";
+
 
             // Загружаем айдишник для
             this.getClientID()
 
-            if (this.model.student_id) {
-                console.log("Указан ID ученика, загружаем данные с сервера")
+            if (this.getIdFromURL()) {
+                console.log("Указан в URL ID ученика, загружаем данные с сервера")
+                this.model.student_id = this.getIdFromURL()
                 this.load()
 
             } else {
                 console.log("Не указан ID ученика, ищем данные локально")
                 this.loadFromLocalStorage()
+
             }
 
             if (this.model.hh_code !== "" && this.model.hh_access_token === "") {
@@ -226,6 +227,7 @@ function App(store) {
                 this.auth()
             }
 
+            this.model.hh_code = this.getHHCodeFromURL() ? this.getHHCodeFromURL() : "";
             setInterval(this.saveToLocalStorage, 5000)
         },
 
@@ -288,6 +290,8 @@ function App(store) {
 
         loadFromLocalStorage() {
 
+            store.setStatus("bio", "loading")
+
             const storedModel = localStorage.getItem("model")
 
             if (storedModel) {
@@ -299,14 +303,16 @@ function App(store) {
                 }
             }
 
-            if (!this.model.student_id) {
+            if (this.model.student_id) {
                 console.log(`В локальном хранилище указан student_id ${this.model.student_id}` )
             } else {
                 console.log("В локальном хранилище не найден student_id")
-                
             }
 
+            console.log("Данные загружены из локального хранилища")
 
+            store.setStatus("bio", "ready")
+            
         },
 
         openPage(pageName){
