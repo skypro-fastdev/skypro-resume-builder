@@ -12,13 +12,14 @@ function  LegendSection(store) {
               <label class="form-check-label" for="legendSwitch">🔥 Добавить легенду</label>
             </div>
             
-            </header>
-            
             <div class="alert alert-info text-muted mt-3">
             Для работы нужен опыт, а для опыта работа? Не беда, мы создадим вам убедительную легенду!
             </div>
+            
+            </header>
+            
 
-              <div  v-if="model.legend_on">
+             <div  v-if="model.legend_on">
               
               <div class="alert alert-info text-muted mt-3">
               
