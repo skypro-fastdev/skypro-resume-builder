@@ -3,7 +3,7 @@ function  LegendSection(store) {
 
     return {
         $template: `
-            <header class="clearfix">
+            <header class="clearfix" v-if="model.legend_on">
              
             <h3 class="w-50 float-start">Легенда</h3>
 

@@ -93,7 +93,7 @@ function App(store) {
 
             // Поля для генерации ковра
 
-            resume_cover_vacancy_url: "https://hh.ru/vacancy/111420778",   // Вакансия, для которой пишем сопроводительное
+            resume_cover_vacancy_url: "",   // Вакансия, для которой пишем сопроводительное
             student_motivation: "",     // Мотивация из таблички пользователя, используется для cover-letter
             resume_cover_prompt: "",    // Уточнение промпта от пользователя
             resume_cover: "",           // Готовое сгенерированное сопроводительное письмо  cover-letter
@@ -184,6 +184,8 @@ function App(store) {
 
                     this.model.student_location = data.location;
 
+                    this.education_level = data.education_level;
+
                     this.model.student_tg = data.student_tg;
                     this.model.student_vk = data.student_vk;
                     this.model.student_mail = data.student_mail;
@@ -227,12 +229,15 @@ function App(store) {
 
             }
 
+            this.model.hh_code = this.getHHCodeFromURL() ? this.getHHCodeFromURL() : "";
+
             if (this.model.hh_code !== "" && this.model.hh_access_token === "") {
                 console.log("Есть HH код, но нет токена, пора запускать авторизацию")
                 this.auth()
             }
 
-            this.model.hh_code = this.getHHCodeFromURL() ? this.getHHCodeFromURL() : "";
+            this.saveToLocalStorage()
+
             setInterval(this.saveToLocalStorage, 5000)
         },
 
@@ -263,7 +268,7 @@ function App(store) {
                     console.log("Выполнена загрузка" + JSON.stringify(response))
                     this.model.hh_access_token = response.data.access_token;
                     console.log(`Получен hh_access_token ${this.model.hh_access_token}`)
-                    this.reportAuthenticated()
+
                 })
                 .catch(error => {
                     console.log(`Произошла ошибка ${error} ${JSON.stringify(error.response)} `)
@@ -282,7 +287,7 @@ function App(store) {
                 status: "AUTHENTICATED",
             }
 
-            axios.post(UPDATEURL, {requestData})
+            axios.post(REPORTURL, {requestData})
                 .then(response => { console.log("Обновлен статус" + JSON.stringify(response))})
                 .catch(error => { console.log(`Ошибка обновлении статуса ${error}`) })
 

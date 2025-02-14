@@ -52,14 +52,14 @@ function PublishSection(store) {
             .catch(error => {
                 const responseData = error.response
                 console.log(`Ошибка при публикации ${error}`)
-                console.log(responseData)
 
                 store.setStatus("publish", "ready")
 
                 this.model.errors = responseData.data.error
+                console.log(this.model.errors)
                 window.scroll({top: 0, behavior: "smooth"});
 
-                // alert(`Произошла ошибка при публикации: ${JSON.stringify(responseData)}`)
+
 
             })
         },
@@ -117,7 +117,6 @@ function PublishSection(store) {
 
             if (!validateLongDate(this.model.previous_job_from)) { errors.push("Проверьте даты в разделе Прошлая работа, укажите дату начала работы в формате 2024-10-01"); }
             if (!validateLongDate(this.model.previous_job_to)) { errors.push("Проверьте даты в разделе  Прошлая работа, укажите дату завершения работы в формате 2024-10-01"); }
-
 
 
             if (errors.length === 0) {
