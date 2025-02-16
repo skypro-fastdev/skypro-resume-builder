@@ -45,7 +45,9 @@ function PublishSection(store) {
                 this.model.hh_resume_published_id = response.data.hh_id;
                 store.setStatus("publish", "ready")
                 this.model.errors = []
-                this.reportPublished()  // Сообщаем серверу, что опубликовались
+
+                this.report("PUBLISH SUCCESSFULL",{})
+
 
             })
 
@@ -59,24 +61,11 @@ function PublishSection(store) {
                 console.log(this.model.errors)
                 window.scroll({top: 0, behavior: "smooth"});
 
+                this.report("PUBLISH ERROR",{})
+
 
 
             })
-        },
-
-        reportPublished(){
-
-            const requestData = {
-                student_id: this.model.student_id,
-                hh_resume_published_id: this.model.hh_resume_published_id,
-                hh_access_token: this.model.hh_access_token,
-                status: "PUBLISHED",
-            }
-
-            axios.post(UPDATEURL, {requestData})
-                .then(response => { console.log("Обновлен статус" + JSON.stringify(response))})
-                .catch(error => { console.log(`Ошибка обновлении статуса ${error}`) })
-
         },
 
         /**

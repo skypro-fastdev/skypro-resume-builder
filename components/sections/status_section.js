@@ -8,12 +8,12 @@ function StatusSection(store) {
             {{error}}
          </div>
 
-          <div class="card" v-if="!model.student_id">
-            <section class="list-group-item p-4" v-scope="NoIDWarning(store)"></section>
+          <div v-if="!model.student_id">
+            <section class="p-4" v-scope="NoIDWarning(store)"></section>
           </div>
         
-          <div class="card" v-if="store.sections.bio=='error'">
-            <section class="list-group-item p-4" v-scope="NoDataWarning(store)"></section>
+          <div v-if="store.sections.bio=='error'">
+            <section class=" p-4" v-scope="NoDataWarning(store)"></section>
           </div>
               
           <div v-if="store.sections.bio == 'loading'">      
@@ -22,7 +22,7 @@ function StatusSection(store) {
                 </div>                    
           </div>    
           
-           <div v-if="model.student_id && store.sections.bio !='loading' && model.hh_access_token==''">    
+           <div v-if="model.student_id && store.sections.bio =='ready' && model.hh_access_token==''">    
                 <div class="alert alert-info clearfix">
                 Данные загружены, анкета не подключена к HeadHunter             
                     <input type="text" v-model="model.hh_access_token"  class="form-control float-end w-25" placeholder="hh_access_code">         

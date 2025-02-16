@@ -12,6 +12,7 @@ AUTHURL = GATEBASEURL + "/auth/"
 UPLOADBASEURL = GATEBASEURL + "/photo/"
 PUBLISHURL = GATEBASEURL + "/resume/"
 CLIENTIDURL = GATEBASEURL + "/client_id/"
+REPORTURL  = GATEBASEURL + "/proxy/"
 
 console.log(`Base url is ${GATEBASEURL}`)
 
@@ -25,7 +26,6 @@ function App(store) {
             errors: [],
 
             // Персональные данные
-
             student_id: null,
             student_gender: "male",
             student_full_name: "",
@@ -42,16 +42,13 @@ function App(store) {
             student_location: "",
 
             // Блок "О Себе"
-
             about: "",
             about_prompt: "",
 
             // Блок "Навыки"
-
             skill_set: [],
 
             // Блок, описывающий легенду (или свежую работу)
-
             legend_on: false,
             legend_type: "ITDEPARTMENT",
             legend_prompt: "",
@@ -66,7 +63,6 @@ function App(store) {
             recent_job_prompt: "",
 
             // Блок, описывающий реальную работу
-
             previous_job_type: "legend",
             previous_job_organisation: "",
             previous_job_position: "",
@@ -77,7 +73,6 @@ function App(store) {
             previous_job_prompt: "",
 
             // Блок, описывающий реальную работу
-
             education_organisation: "",
             education_level: "higher",
             education_from: "",
@@ -86,20 +81,17 @@ function App(store) {
             education_industry: "",
 
             // Сгенерированное резюме
-
             resume_markdown: "",
             resume: "",
             resume_checklist: [],
 
             // Поля для генерации ковра
-
             resume_cover_vacancy_url: "",   // Вакансия, для которой пишем сопроводительное
             student_motivation: "",     // Мотивация из таблички пользователя, используется для cover-letter
             resume_cover_prompt: "",    // Уточнение промпта от пользователя
             resume_cover: "",           // Готовое сгенерированное сопроводительное письмо  cover-letter
 
             // Сгенерированное резюме
-
             hh_client_id: "",
             hh_access_token: "",    // код, который отдает OAUTH чтобы по нему получить токен
             hh_resume_published_id: "",   //
@@ -109,7 +101,6 @@ function App(store) {
             vacancy_link: "",
 
             // Фотография для отправки в резюме
-
             hh_photo_id: "",
             hh_photo_small: "",
             hh_photo_medium: "",
@@ -211,6 +202,10 @@ function App(store) {
                     store.setStatus("bio", "ready")
 
                 })
+
+                // Репортим статус
+                this.report("DATA LOADEDING",{})
+
         },
 
         mounted() {
@@ -268,6 +263,8 @@ function App(store) {
                     console.log("Выполнена загрузка" + JSON.stringify(response))
                     this.model.hh_access_token = response.data.access_token;
                     console.log(`Получен hh_access_token ${this.model.hh_access_token}`)
+                    // отправляем сообщение в статистику
+                    this.report("TOKEN GRANTED",{token: this.model.hh_access_token})
 
                 })
                 .catch(error => {
@@ -279,25 +276,22 @@ function App(store) {
 
         },
 
-        reportAuthenticated(){
+        report(event, data){
 
             const requestData = {
                 student_id: this.model.student_id,
-                hh_access_token: this.model.hh_access_token,
-                status: "AUTHENTICATED",
+                event: event,
+                details: data,
             }
 
-            axios.post(REPORTURL, {requestData})
-                .then(response => { console.log("Обновлен статус" + JSON.stringify(response))})
-                .catch(error => { console.log(`Ошибка обновлении статуса ${error}`) })
+            axios.post(REPORTURL, requestData)
+                .then(response => { console.log(`Записано событие ${event}`)})
+                .catch(error => { console.log(`Ошибка при записи события ${event}`) })
 
         },
 
         saveToLocalStorage() {
-            // if (store.section.bio != 'ready'){
-            //     console.log("Мы в процессе загрузки, автосохранение пропускаем")
-            //     return
-            // }
+
             localStorage.setItem("model", JSON.stringify(this.model));
             console.log("Данные сохранены в локальном хранилище")
         },

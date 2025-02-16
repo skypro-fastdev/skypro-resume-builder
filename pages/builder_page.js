@@ -11,7 +11,7 @@ function BuilderPage(store) {
             
                 <section class="p-4 pb-1" v-scope="StatusSection(store)"></section>
             
-                <section v-if="store.sections.bio == 'ready'"> 
+                <section v-if="store.sections.bio == 'ready' && model.student_id"> 
                     <div class="p-4" v-scope="BioSection(store)"></div>
                  </section>  
                  
@@ -31,8 +31,6 @@ function BuilderPage(store) {
           </div><!-- /card -->
         </main>
     
-        
-        
       </div> <!-- /row -->
 
         `,
