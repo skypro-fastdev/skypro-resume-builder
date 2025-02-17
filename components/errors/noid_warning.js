@@ -11,7 +11,7 @@ function NoIDWarning(store){
                   Перезайти
                 </a>
             </div>
-            <!-- /.center -->
+           
     
         `,
 

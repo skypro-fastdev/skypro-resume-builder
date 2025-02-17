@@ -55,8 +55,9 @@ function PhotoSection(store) {
                     this.model.hh_photo_id = response.data["id"]
                     this.model.hh_photo_small = response.data["small"]
                     this.model.hh_photo_medium = response.data["medium"]
-
                     store.setStatus("photo", "ready")
+                    // Пишем в отчет
+                    this.report("PHOTO GENERATED",{})
 
                 })
                 .catch(error => {

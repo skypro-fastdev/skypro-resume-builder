@@ -30,6 +30,8 @@ function AboutSection(store) {
                 console.log("Выполнена загрузка"+ JSON.stringify(response))
                 this.model.about = response.data.response;
                 store.setStatus("about", "ready")
+                // Репортим статус
+                this.report("ABOUT GENERATED",{})
             })
             .catch(error => {
                 console.log("Произошла ошибка" + JSON.stringify(error))

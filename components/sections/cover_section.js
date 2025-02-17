@@ -20,7 +20,6 @@ function CoverSection(store) {
                 <textarea v-model="model.resume_cover" rows="5" class="form-control"></textarea>
                 
             </div>
-
                 <button v-if="store.sections.cover=='ready'" @click="load()" class="btn btn-dark" >✨ Сгенерировать</button>
                 <button v-if="store.sections.cover=='loading'"  class="btn btn-dark mt-2"disabled>Идет генерация</button>
             </p>
