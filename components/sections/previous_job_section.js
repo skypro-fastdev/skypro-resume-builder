@@ -41,7 +41,7 @@ function PreviousJobSection(store) {
             
             <div class="alert alert-info text-muted mt-3">
             
-                <small>ИИ опишет обязанности и приукрасит достижения так, как это нравится эйчару и работодателю.  Вы сможете отредактировать их или уточнть задачу для ИИ</small>
+                <small>Используйте тонкую настройку, чтобы описать ваш реальный опыт простыми словами, и ИИ поможет сформулировать ваши обязанности в понятный результат для эйчара и  работодателя.</small>
                 
                 <details class="mt-2">
                 <summary>Тонкая настройка</summary>
@@ -71,8 +71,6 @@ function PreviousJobSection(store) {
 
                 student_location: this.model.student_location,
                 student_gender: this.model.student_gender,
-
-
                 prompt: this.model.previous_job_prompt
             }
 
