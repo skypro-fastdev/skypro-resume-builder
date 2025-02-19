@@ -46,7 +46,7 @@ function PublishSection(store) {
                 store.setStatus("publish", "ready")
                 this.model.errors = []
 
-                this.report("PUBLISH SUCCESSFULL",{})
+                this.report("PUBLISH SUCCESSFULL",response.data)
 
 
             })
@@ -61,7 +61,7 @@ function PublishSection(store) {
                 console.log(this.model.errors)
                 window.scroll({top: 0, behavior: "smooth"});
 
-                this.report("PUBLISH ERROR",{})
+                this.report("PUBLISH ERROR",responseData.data)
 
 
 

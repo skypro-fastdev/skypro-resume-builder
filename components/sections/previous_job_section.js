@@ -85,7 +85,7 @@ function PreviousJobSection(store) {
                     }
 
                     store.setStatus("previous_job", "ready")
-                    this.report("EXPERIENCE GENERATED",{})
+                    this.report("EXPERIENCE GENERATED",requestData)
 
                 })
                 .catch(error => {
