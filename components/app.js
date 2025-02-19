@@ -204,7 +204,7 @@ function App(store) {
                 })
 
                 // Репортим статус
-                this.report("DATA LOADEDING",{})
+                this.report("DATA LOADED",{})
 
         },
 

@@ -31,7 +31,7 @@ function AboutSection(store) {
                 this.model.about = response.data.response;
                 store.setStatus("about", "ready")
                 // Репортим статус
-                this.report("ABOUT GENERATED",{})
+                this.report("ABOUT GENERATED",requestData)
             })
             .catch(error => {
                 console.log("Произошла ошибка" + JSON.stringify(error))
