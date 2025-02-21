@@ -57,7 +57,7 @@ function PhotoSection(store) {
                     this.model.hh_photo_medium = response.data["medium"]
                     store.setStatus("photo", "ready")
                     // Пишем в отчет
-                    this.report("PHOTO GENERATED",{})
+                    this.report("PHOTO UPLOADED",response.data)
 
                 })
                 .catch(error => {
@@ -66,6 +66,7 @@ function PhotoSection(store) {
                     console.log(responseData)
                     store.setStatus("photo", "ready")
                     alert(`Произошла ошибка при публикации: ${JSON.stringify(responseData)}`)
+                    this.report("PHOTO ERROR", responseData)
                 });
 
         },
